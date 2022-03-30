@@ -1,0 +1,42 @@
+#!/bin/bash
+
+OS=$(uname)
+
+if [[ $OS == "Darwin" ]]; then
+    scriptPath="/mnt/c/Users/jere.baker/Documents/GitHub/Igniter\ Media\ Scripts/"
+elif [[ $OS == "Linux" ]]; then
+    scriptPath="~/Documents/Github/Igniter Media Scripts/"
+else
+    echo "Not able to detect Operating System"
+    exit
+fi
+
+bash "${scriptPath}checkOS"
+
+#make folder structure in "_Working"
+read -p "What is the name of this Project?  " pName
+read -p "What are the look variations for this project? (separated by comma)    " looksTemp
+
+IFS=',' read -r -a looksArray <<< "$looksTemp"
+
+cd "$workingPath"
+
+mkdir -p "${pName}_MASTER"
+    mkdir -p "${pName}_MASTER/STILLS"
+        mkdir -p "${pName}_MASTER/STILLS/PROJECT FILES"
+        mkdir -p "${pName}_MASTER/STILLS/FONTS"
+        mkdir -p "${pName}_MASTER/STILLS/ASSETS"
+    mkdir -p "${pName}_MASTER/MOTIONS"
+        mkdir -p "${pName}_MASTER/MOTIONS/PROJECT FILES"
+            mkdir -p "${pName}_MASTER/MOTIONS/PROJECT FILES/_REDUCED"
+        mkdir -p "${pName}_MASTER/MOTIONS/ASSETS"
+    for i in "${looksArray[@]}"
+    do
+        temp=${i#" "}
+        temp=${temp%" "}
+        temp="_${temp}"
+        mkdir -p "${pName}_MASTER/STILLS/PROJECT FILES/$temp"
+        mkdir -p "${pName}_MASTER/$temp"
+            mkdir -p "${pName}_MASTER/$temp/STILL DELIVERABLES"
+            mkdir -p "${pName}_MASTER/$temp/MOTION DELIVERABLES"
+    done
