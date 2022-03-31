@@ -48,12 +48,15 @@
     clear
 #
 
+# move files to deliverables folder
+#
+
 # check file resolutions and naming
     echo $projName
     echo
     lookArray=()
     for i in *; do
-        if [[ "$i" != *"MOTIONS"* ]] && [[ "$i" != *"STILLS"* ]]; then
+        if [[ "$i" != *"MOTION"* ]] && [[ "$i" != *"STILL"* ]]; then
             lookArray+=("$i")
             cd "./$i"
             echo $i
@@ -87,7 +90,7 @@ echo
 
 # copy files to Uploads
     for i in *; do
-        if [[ "$i" != *"MOTIONS"* ]] && [[ "$i" != *"STILLS"* ]]; then
+        if [[ "$i" != *"MOTION"* ]] && [[ "$i" != *"STILL"* ]]; then
             cd "./$i"
             echo "Copying $i to Uploads"
             bash ${scriptPath}copyFiles "$uploadsPath" "$projName" "$i"
@@ -100,7 +103,7 @@ cd "${uploadsPath}${projName}_MASTER"
 
 # motionTitles protocol
     for i in *; do
-        if [[ "$i" != *"MOTIONS"* ]] && [[ "$i" != *"STILLS"* ]]; then
+        if [[ "$i" != *"MOTION"* ]] && [[ "$i" != *"STILL"* ]]; then
             cd "./$i"
             bash ${scriptPath}motionThumbs $ttFrame $bgFrame $uwFrame $cdFrame $tvFrame $bpFrame $scFrame
             cd ..

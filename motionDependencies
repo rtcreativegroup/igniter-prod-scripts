@@ -10,3 +10,14 @@ brew install gcc
 brew install ffmpeg
 brew upgrade
 brew update
+
+#alias reference
+alias test="/mnt/c/Users/jere.baker/Documents/GitHub/test"
+alias addAlias="sudo nano .bashrc"
+alias fileProcess="/mnt/c/Users/jere.baker/Documents/GitHub/IG_Scripts/IG_fileProcess"
+alias aeCompress="/mnt/c/Users/jere.baker/Documents/GitHub/IG_Scripts/aeCompress"
+alias checkFiles="/mnt/c/Users/jere.baker/Documents/GitHub/IG_Scripts/checkFiles"
+alias copyFiles="/mnt/c/Users/jere.baker/Documents/GitHub/IG_Scripts/copyFiles"
+alias motionThumbs="/mnt/c/Users/jere.baker/Documents/GitHub/IG_Scripts/motionThumbs"
+alias projectInit="/mnt/c/Users/jere.baker/Documents/GitHub/IG_Scripts/projectInit"
+alias sdcrop="/mnt/c/Users/jere.baker/Documents/GitHub/IG_Scripts/sdcrop"
