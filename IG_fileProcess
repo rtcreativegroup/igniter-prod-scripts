@@ -55,9 +55,11 @@
     echo $projName
     echo
     lookArray=()
+    lookNum=0
     for i in *; do
         if [[ "$i" != *"MOTION"* ]] && [[ "$i" != *"STILL"* ]]; then
             lookArray+=("$i")
+            lookNum++
             cd "./$i"
             echo $i
             bash ${scriptPath}checkFiles
@@ -93,7 +95,7 @@ echo
         if [[ "$i" != *"MOTION"* ]] && [[ "$i" != *"STILL"* ]]; then
             cd "./$i"
             echo "Copying $i to Uploads"
-            bash ${scriptPath}copyFiles "$uploadsPath" "$projName" "$i"
+            bash ${scriptPath}copyFiles "$uploadsPath" "$projName" "$i" "$lookNum"
             cd ..
         fi
     done

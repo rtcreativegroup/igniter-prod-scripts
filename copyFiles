@@ -3,6 +3,7 @@
 uploadsPath="$1"
 projName="$2"
 lookName="$3"
+lookNum="$4"
 sortError=()
 
 #sorting identifiers
@@ -70,7 +71,11 @@ sortError=()
 # copy stills
 cd "./STILL DELIVERABLES/"
 for i in *; do
-    stillPath="${uploadsPath}${projName}_MASTER/${lookName}/MOTIONS/${projName}_${lookName}_${i}"
+    if [[ $lookNum > 1 ]]; then 
+        stillPath="${uploadsPath}${projName}_MASTER/${lookName}/MOTIONS/${projName}_${lookName}_${i}"
+    else
+        stillPath="${uploadsPath}${projName}_MASTER/${lookName}/MOTIONS/${projName}_${i}"
+    fi
     if [[ "$i" != *"*"* ]]; then
         if [[ "$i" == *"$stillPP"* ]]; then
             if [[ "$i" == *"$stillWIDE"* ]]; then
@@ -164,7 +169,11 @@ cd ..
 # copy motions
 cd "./MOTION DELIVERABLES/"
 for i in *; do
-    motionPath="${uploadsPath}${projName}_MASTER/${lookName}/MOTIONS/${projName}_${lookName}_ANIM_${i}"
+    if [[ $lookNum > 1 ]]; then 
+        motionPath="${uploadsPath}${projName}_MASTER/${lookName}/MOTIONS/${projName}_${lookName}_ANIM_${i}"
+    else
+        motionPath="${uploadsPath}${projName}_MASTER/${lookName}/MOTIONS/${projName}_ANIM_${i}"
+    fi
     if [[ "$i" != *"*"* ]]; then
         if [[ -d "$i" ]]; then
             echo "  $i"
