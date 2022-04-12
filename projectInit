@@ -14,67 +14,76 @@ fi
 #make folder structure in "_Working"
 read -p "What is the name of this Project?  " pName
 read -p "What are the look variations for this project? (separated by comma, leave blank if none)    " looksTemp
-read -p "What is the main title name? (separated by comma, match order of look variations)    " nameTemp
-read -p "What are the type of social? (separated by comma)    " socialTemp
+read -p "What are the main title names? (separated by comma, match order of looks)    " titleTemp
+read -p "What are the type of social? (separated by comma, no spaces)    " socialTemp
 
 IFS=',' read -ra looksArray <<< "$looksTemp"
-IFS=',' read -ra mainNames <<< "$nameTemp"
+IFS=',' read -ra titleTypes <<< "$titleTemp"
 IFS=',' read -ra socialTypes <<< "$socialTemp"
 
 makeFolders () {
     mkdir -p "01_Marketing"
-            mkdir -p "01_Marketing/_Images"
-        mkdir -p "02_Title"
-            for i in ${!mainNames[@]}; do
-                mkdir -p "02_Title/${mainNames[$i]}"
-                    mkdir -p "02_Title/${mainNames[$i]}/_Images"
-                    mkdir -p "02_Title/${mainNames[$i]}/_Motions"
-                    mkdir -p "02_Title/${mainNames[$i]}/_PowerPoints"
-            done
-            mkdir -p "02_Title/Welcome"
-                mkdir -p "02_Title/Welcome/_Images"
-                mkdir -p "02_Title/Welcome/_Motions"
-                mkdir -p "02_Title/Welcome/_PowerPoints"
-            mkdir -p "02_Title/Goodbye"
-                mkdir -p "02_Title/Goodbye/_Images"
-                mkdir -p "02_Title/Goodbye/_Motions"
-                mkdir -p "02_Title/Goodbye/_PowerPoints"
-            mkdir -p "02_Title/Offering"
-                mkdir -p "02_Title/Offering/_Images"
-                mkdir -p "02_Title/Offering/_Motions"
-                mkdir -p "02_Title/Offering/_PowerPoints"
-            mkdir -p "02_Title/Events"
-                mkdir -p "02_Title/Events/_Images"
-                mkdir -p "02_Title/Events/_Motions"
-                mkdir -p "02_Title/Events/_PowerPoints"
-        mkdir -p "03_Social"
-            for i in "${!socialTypes[@]}"; do
-                mkdir -p "02_Title/${socialTypes[$i]}"
-                    mkdir -p "02_Title/${socialTypes[$i]}/_Images"
-                    mkdir -p "02_Title/${socialTypes[$i]}/_Motions"
-            done
-        mkdir -p "04_Worship Background"
-            mkdir -p "04_Worship Background/_Motions"
-        mkdir -p "05_Countdown & Trivia"
-            mkdir -p "05_Countdown & Trivia/_Motions"
-        mkdir -p "06_Bumper"
-            mkdir -p "06_Bumper/_Motions"
+    mkdir -p "01_Marketing/_Images"
+
+    mkdir -p "02_Title"
+    mkdir -p "02_Title/$1"
+    mkdir -p "02_Title/$1/_Images"
+    mkdir -p "02_Title/$1/_Motions"
+    mkdir -p "02_Title/$1/_PowerPoints"
+    mkdir -p "02_Title/Goodbye"
+    mkdir -p "02_Title/Goodbye/_Images"
+    mkdir -p "02_Title/Goodbye/_Motions"
+    mkdir -p "02_Title/Goodbye/_PowerPoints"
+    mkdir -p "02_Title/Events"
+    mkdir -p "02_Title/Events/_Images"
+    mkdir -p "02_Title/Events/_Motions"
+    mkdir -p "02_Title/Events/_PowerPoints"
+    mkdir -p "02_Title/Offering"
+    mkdir -p "02_Title/Offering/_Images"
+    mkdir -p "02_Title/Offering/_Motions"
+    mkdir -p "02_Title/Offering/_PowerPoints"
+    mkdir -p "02_Title/Welcome"
+    mkdir -p "02_Title/Welcome/_Images"
+    mkdir -p "02_Title/Welcome/_Motions"
+    mkdir -p "02_Title/Welcome/_PowerPoints"
+
+    mkdir -p "04_Worship Background"
+    mkdir -p "04_Worship Background/_Motions"
+
+    mkdir -p "05_Countdown & Trivia"
+    mkdir -p "05_Countdown & Trivia/_Motions"
+
+    mkdir -p "06_Bumper"
+    mkdir -p "06_Bumper/_Images"
+}
+
+socialFolders () {
+    mkdir -p "03_Social"
+    mkdir -p "03_Social/$2"
+    mkdir -p "03_Social/$2/_Images"
+    mkdir -p "03_Social/$2/_Motions"
 }
 
 cd "$workingPath"
-
 mkdir -p "${pName}_MASTER"
-mkdir -p "${pName}_MASTER/00_Assets"
-mkdir -p "${pName}_MASTER/00_Project Cache"
 cd "./${pName}_MASTER"
 
-if (( ${#looksArray[@]} < 2 )); then
-    makeFolders
-else
-    for i in ${looksArray[@]}; do
-        mkdir -p "$i"
-        cd "./$i"
-        makeFolders
+if (( ${#looksArray[@]} > 1 )); then
+    for i in ${!looksArray[@]}; do
+        mkdir -p "${looksArray[$i]}"
+        cd "./${looksArray[$i]}"
+        makeFolders ${titleTypes[$i]}
+        for t in ${!socialTypes[@]}; do
+            socialFolders ${socialTypes[$i]}
+        done
         cd ..
     done
+else
+    makeFolders ${titleTypes[1]}
+    for t in ${!socialTypes[@]}; do
+        socialFolders ${socialTypes[$i]}
+    done
 fi
+
+mkdir -p "00_Assets"
+mkdir -p "00_Project Cache"

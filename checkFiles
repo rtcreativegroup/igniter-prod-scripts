@@ -1,443 +1,144 @@
 #!/bin/bash
 
-#sorting identifiers
-    collectionHero="HERO"
-    collectionThumb="THUMB"
-
-    socialLS="_LS"
-    socialPR="_PR"
-    socialSQ="_SQ"
-
-    stillWIDE="_WIDE"
-    stillSTD="_STD"
-    stillPP="PP_"
-    stillTitle1="TT1_"
-    stillTitle2="TT2_"
-    stillTitle3="TT3_"
-    stillAlt1="ALT1_"
-    stillAlt2="ALT2_"
-    stillL3="L3_"
-    stillL3Thumb="_TH_"
-    stillDemo="DEMO_"
-    stillDemoPSD="_PSD"
-    stillDemoSocial="_SOC"
-    stillSocial="SOC_"
-    stillSocialS="_S_"
-    stillSocialB="_B_"
-    stillSocialOR="_OR"
-
-    motionHD="_HD"
-    motionSD="_SD"
-    motionCD="Countdown_"
-    motionTV="Trivia_"
-    motionWB="WB_"
-    motionUW="UW_"
-    motionBP="BMP_"
-    motionSocial="SOC_"
-#
-
-# resolutions
-    demoRes="454x378"
-    heroRes="1920x350"
-    thumbRes="900x692"
-    socialORRes="672x670"
-
-    socialResLS="1280x720"
-    socialResPR="1080x1920"
-    socialResSQ="1080x1080"
-
-    stillResWIDE="2880x1620"
-    stillResSTD="2160x1620"
-    stillResL3Thumb="1280x720"
-    
-    motionResHD="1920x1080"
-    motionResSD="1440x1080"
-    motionResUWHD="3840x720"
-    motionResUWSD="1920x480"
-#
-
-# arrays
-    nameError=()
-    resError=()
-    sizeError=()
-
-    titleArray=()
-    altArray=()
-    l3Array=()
-    ppArray=()
-    socialArray=()
-    collectionArray=()
-
-    cdArray=()
-    tvArray=()
-    uwArray=()
-    bpArray=()
-    aeProjArray=()
-#
-
-# check stills
-cd "./STILL DELIVERABLES/"
+cd "./02_Title"
 for i in *; do
-    if [[ "$i" != *"*"* ]]; then
-        if [[ "$i" == *"$stillPP"* ]]; then
-            if [[ "$i" == *"$stillWIDE"* ]]; then
-                ppArray+=("$i")
-            elif [[ "$i" == *"$stillSTD"* ]]; then
-                ppArray+=("$i")
-            fi
-        else
+    cd "./$i/_Images"
+    for i in *; do
+        if [[ "$i" != *"*"* ]] || [[ "$i" != *".db"* ]]; then
             fileRes=$(ffprobe -v quiet -select_streams v:0 -show_entries stream=width,height -of csv=s=x:p=0 "$i")
-            if [[ "$i" == *"$stillTitle1"* ]] && [[ "$i" == *"$stillWIDE"* ]]; then
-                if [[ "$fileRes" == "$stillResWIDE" ]]; then
-                    titleArray+=("$i")
+            if [[ "$fileRes" == "1920x1080" ]] && [[ "$i" == *"_WIDE"* ]]; then
+                if [[ "$i" == *"ALT1_"* ]] || [[ "$i" == *"ALT2_"* ]]; then
+                    echo -e "\e[1;37m    $i"
+                elif [[ "$i" == *"L3_"* ]]; then
+                    echo -e "\e[1;37m    $i"
+                elif [[ "$i" == *"TT1_"* ]] || [[ "$i" == *"TT2_"* ]] || [[ "$i" == *"TT3_"* ]]; then
+                    echo -e "\e[1;37m    $i"
                 else
-                    resError+=("$i")
+                    echo -e "\e[1;31m    $i"
                 fi
-            elif [[ "$i" == *"$stillTitle1"* ]] && [[ "$i" == *"$stillSTD"* ]]; then
-                if [[ "$fileRes" == "$stillResSTD" ]]; then
-                    titleArray+=("$i")
+            elif [[ "$fileRes" == "1440x1080" ]] && [[ "$i" == *"_STD"* ]]; then
+                if [[ "$i" == *"ALT1_"* ]] || [[ "$i" == *"ALT2_"* ]]; then
+                    echo -e "\e[1;37m    $i"
+                elif [[ "$i" == *"L3_"* ]]; then
+                    echo -e "\e[1;37m    $i"
+                elif [[ "$i" == *"TT1_"* ]] || [[ "$i" == *"TT2_"* ]] || [[ "$i" == *"TT3_"* ]]; then
+                    echo -e "\e[1;37m    $i"
                 else
-                    resError+=("$i")
+                    echo -e "\e[1;31m    $i"
                 fi
-            elif [[ "$i" == *"$stillTitle2"* ]] && [[ "$i" == *"$stillWIDE"* ]]; then
-                if [[ "$fileRes" == "$stillResWIDE" ]]; then
-                    titleArray+=("$i")
-                else
-                    resError+=("$i")
-                fi
-            elif [[ "$i" == *"$stillTitle2"* ]] && [[ "$i" == *"$stillSTD"* ]]; then
-                if [[ "$fileRes" == "$stillResSTD" ]]; then
-                    titleArray+=("$i")
-                else
-                    resError+=("$i")
-                fi
-            elif [[ "$i" == *"$stillTitle3"* ]] && [[ "$i" == *"$stillWIDE"* ]]; then
-                if [[ "$fileRes" == "$stillResWIDE" ]]; then
-                    titleArray+=("$i")
-                else
-                    resError+=("$i")
-                fi
-            elif [[ "$i" == *"$stillTitle3"* ]] && [[ "$i" == *"$stillSTD"* ]]; then
-                if [[ "$fileRes" == "$stillResSTD" ]]; then
-                    titleArray+=("$i")
-                else
-                    resError+=("$i")
-                fi
-            elif [[ "$i" == *"$stillAlt1"* ]] && [[ "$i" == *"$stillWIDE"* ]]; then
-                if [[ "$fileRes" == "$stillResWIDE" ]]; then
-                    altArray+=("$i")
-                else
-                    resError+=("$i")
-                fi
-            elif [[ "$i" == *"$stillAlt1"* ]] && [[ "$i" == *"$stillSTD"* ]]; then
-                if [[ "$fileRes" == "$stillResSTD" ]]; then
-                    altArray+=("$i")
-                else
-                    resError+=("$i")
-                fi
-            elif [[ "$i" == *"$stillAlt2"* ]] && [[ "$i" == *"$stillWIDE"* ]]; then
-                if [[ "$fileRes" == "$stillResWIDE" ]]; then
-                    altArray+=("$i")
-                else
-                    resError+=("$i")
-                fi
-            elif [[ "$i" == *"$stillAlt2"* ]] && [[ "$i" == *"$stillSTD"* ]]; then
-                if [[ "$fileRes" == "$stillResSTD" ]]; then
-                    altArray+=("$i")
-                else
-                    resError+=("$i")
-                fi
-            elif [[ "$i" == *"$stillL3"* ]] && [[ "$i" == *"$stillWIDE"* ]]; then
-                if [[ "$fileRes" == "$stillResWIDE" ]]; then
-                    l3Array+=("$i")
-                else
-                    resError+=("$i")
-                fi
-            elif [[ "$i" == *"$stillL3"* ]] && [[ "$i" == *"$stillSTD"* ]]; then
-                if [[ "$fileRes" == "$stillResSTD" ]]; then
-                    l3Array+=("$i")
-                else
-                    resError+=("$i")
-                fi
-            elif [[ "$i" == *"$stillL3"* ]] && [[ "$i" == *"$stillWIDE"* ]] && [[ "$i" == *"$stillL3Thumb"* ]]; then
-                if [[ "$fileRes" == "$stillResL3Thumb" ]]; then
-                    l3Array+=("$i")
-                else
-                    resError+=("$i")
-                fi
-            elif [[ "$i" == *"$stillSocial"* ]] && [[ "$i" == "$stillSocialS" ]] && [[ "$i" == "$socialLS" ]]; then
-                if [[ "$fileRes" == "$socialResLS" ]]; then
-                    socialArray+=("$i")
-                else
-                    resError+=("$i")
-                fi
-            elif [[ "$i" == *"$stillSocial"* ]] && [[ "$i" == "$stillSocialS" ]] && [[ "$i" == "$socialPR" ]]; then
-                if [[ "$fileRes" == "$socialResPR" ]]; then
-                    socialArray+=("$i")
-                else
-                    resError+=("$i")
-                fi
-            elif [[ "$i" == *"$stillSocial"* ]] && [[ "$i" == "$stillSocialS" ]] && [[ "$i" == "$socialSQ" ]]; then
-                if [[ "$fileRes" == "$socialResSQ" ]]; then
-                    socialArray+=("$i")
-                else
-                    resError+=("$i")
-                fi
-            elif [[ "$i" == *"$stillSocial"* ]] && [[ "$i" == "$stillSocialB" ]] && [[ "$i" == "$socialLS" ]]; then
-                if [[ "$fileRes" == "$socialResLS" ]]; then
-                    socialArray+=("$i")
-                else
-                    resError+=("$i")
-                fi
-            elif [[ "$i" == *"$stillSocial"* ]] && [[ "$i" == "$stillSocialB" ]] && [[ "$i" == "$socialPR" ]]; then
-                if [[ "$fileRes" == "$socialResPR" ]]; then
-                    socialArray+=("$i")
-                else
-                    resError+=("$i")
-                fi
-            elif [[ "$i" == *"$stillSocial"* ]] && [[ "$i" == "$stillSocialB" ]] && [[ "$i" == "$socialSQ" ]]; then
-                if [[ "$fileRes" == "$socialResSQ" ]]; then
-                    socialArray+=("$i")
-                else
-                    resError+=("$i")
-                fi
-            elif [[ "$i" == *"$stillSocial"* ]] && [[ "$i" == "$stillSocialOR" ]]; then
-                if [[ "$fileRes" == "$socialORRes" ]]; then
-                    collectionArray+=("$i")
-                else
-                    resError+=("$i")
-                fi
-            elif [[ "$i" == *"$collectionHero"* ]]; then
-                if [[ "$fileRes" == "$heroRes" ]]; then
-                    collectionArray+=("$i")
-                else
-                    resError+=("$i")
-                fi
-            elif [[ "$i" == *"$collectionThumb"* ]]; then
-                if [[ "$fileRes" == "$thumbRes" ]]; then
-                    collectionArray+=("$i")
-                else
-                    resError+=("$i")
-                fi
-            elif [[ "$i" == *"$stillDemo"* ]] && [[ "$i" == *"$stillDemoPSD"* ]]; then
-                if [[ "$fileRes" == "$demoRes" ]]; then
-                    collectionArray+=("$i")
-                else
-                    resError+=("$i")
-                fi
-            elif [[ "$i" == *"$stillDemo"* ]] && [[ "$i" == *"$stillDemoSocial"* ]]; then
-                if [[ "$fileRes" == "$demoRes" ]]; then
-                    collectionArray+=("$i")
-                else
-                    resError+=("$i")
-                fi
+            elif [[ "$fileRes" == "1280x720" ]] && [[ "$i" == *"_TH_"* ]] && [[ "$i" == *"_WIDE"* ]]; then
+                echo -e "\e[1;37m    $i"
             else
-                nameError+=("$i")
+                echo -e "\e[1;31m    $i"
             fi
         fi
-    fi
+    done
+    cd ..
+    cd "./_Motions"
+    for i in *; do
+        if [[ "$i" != *"*"* ]] || [[ "$i" != *".db"* ]]; then
+            fileRes=$(ffprobe -v quiet -select_streams v:0 -show_entries stream=width,height -of csv=s=x:p=0 "$i")
+            if [[ "$fileRes" == "1920x1080" ]] && [[ "$i" == *"_HD"* ]]; then
+                echo -e "\e[1;37m    $i"
+            elif [[ "$fileRes" == "1440x1080" ]] && [[ "$i" == *"_SD"* ]]; then
+                echo -e "\e[1;37m    $i"
+            elif [[ "$i" == *"_HD"* ]] || [[ "$i" == *"_SD"* ]]; then
+                echo -e "\e[1;31m    $i"
+            else
+                echo -e "\e[1;31m    $i"
+            fi
+        fi
+    done
+    cd ../../
 done
 cd ..
 
-# check motions
-cd "./MOTION DELIVERABLES/"
+cd "./03_Social"
 for i in *; do
-    if [[ "$i" != *"*"* ]]; then
-        if [[ -d "$i" ]]; then
-            dirSize=$(du -hs "$i")
-            if [[ $dirSize < 2 ]]; then
-                aeProjArray+=("$i")
-            else
-                sizeError+=("$i")
-            fi
-        else
+    cd "./$i/_Images"
+    for i in *; do
+        if [[ "$i" != *"*"* ]] || [[ "$i" != *".db"* ]]; then
             fileRes=$(ffprobe -v quiet -select_streams v:0 -show_entries stream=width,height -of csv=s=x:p=0 "$i")
-            if [[ "$i" == *"$motionCD"* ]] && [[ "$i" == *"$motionHD"* ]]; then
-                if [[ "$fileRes" == "$motionResHD" ]]; then
-                    cdArray+=("$i")
-                else
-                    resError+=("$i")
-                fi
-            elif [[ "$i" == *"$motionCD"* ]] && [[ "$i" == *"$motionSD"* ]]; then
-                if [[ "$fileRes" == "$motionResSD" ]]; then
-                    cdArray+=("$i")
-                else
-                    resError+=("$i")
-                fi
-            elif [[ "$i" == *"$motionTV"* ]] && [[ "$i" == *"$motionHD"* ]]; then
-                if [[ "$fileRes" == "$motionResHD" ]]; then
-                    tvArray+=("$i")
-                else
-                    resError+=("$i")
-                fi
-            elif [[ "$i" == *"$motionTV"* ]] && [[ "$i" == *"$motionSD"* ]]; then
-                if [[ "$fileRes" == "$motionResSD" ]]; then
-                    tvArray+=("$i")
-                else
-                    resError+=("$i")
-                fi
-            elif [[ "$i" == *"$motionWB"* ]] && [[ "$i" == *"$motionHD"* ]]; then
-                if [[ "$fileRes" == "$motionResHD" ]]; then
-                    altArray+=("$i")
-                else
-                    resError+=("$i")
-                fi
-            elif [[ "$i" == *"$motionWB"* ]] && [[ "$i" == *"$motionSD"* ]]; then
-                if [[ "$fileRes" == "$motionResSD" ]]; then
-                    altArray+=("$i")
-                else
-                    resError+=("$i")
-                fi
-            elif [[ "$i" == *"$motionUW"* ]] && [[ "$i" == *"$motionHD"* ]]; then
-                if [[ "$fileRes" == "$motionResUWHD" ]]; then
-                    uwArray+=("$i")
-                else
-                    resError+=("$i")
-                fi
-            elif [[ "$i" == *"$motionUW"* ]] && [[ "$i" == *"$motionSD"* ]]; then
-                if [[ "$fileRes" == "$motionResUWSD" ]]; then
-                    uwArray+=("$i")
-                else
-                    resError+=("$i")
-                fi
-            elif [[ "$i" == *"$motionBP"* ]] && [[ "$i" == *"$motionHD"* ]]; then
-                if [[ "$fileRes" == "$motionResHD" ]]; then
-                    bpArray+=("$i")
-                else
-                    resError+=("$i")
-                fi
-            elif [[ "$i" == *"$motionBP"* ]] && [[ "$i" == *"$motionSD"* ]]; then
-                if [[ "$fileRes" == "$motionResSD" ]]; then
-                    bpArray+=("$i")
-                else
-                    resError+=("$i")
-                fi
-            elif [[ "$i" == *"$motionSocial"* ]] && [[ "$i" == *"$socialLS"* ]]; then
-                if [[ "$fileRes" == "$socialResLS" ]]; then
-                    socialArray+=("$i")
-                else
-                    resError+=("$i")
-                fi
-            elif [[ "$i" == *"$motionSocial"* ]] && [[ "$i" == *"$socialPR"* ]]; then
-                if [[ "$fileRes" == "$socialResPR" ]]; then
-                    socialArray+=("$i")
-                else
-                    resError+=("$i")
-                fi
-            elif [[ "$i" == *"$motionSocial"* ]] && [[ "$i" == *"$socialSQ"* ]]; then
-                if [[ "$fileRes" == "$socialResSQ" ]]; then
-                    socialArray+=("$i")
-                else
-                    resError+=("$i")
-                fi
-            elif [[ "$i" == *"$motionHD"* ]]; then
-                if [[ "$fileRes" == "$motionResHD" ]]; then
-                    titleArray+=("$i")
-                else
-                    resError+=("$i")
-                fi
-            elif [[ "$i" == *"$motionSD"* ]]; then
-                if [[ "$fileRes" == "$motionResSD" ]]; then
-                    titleArray+=("$i")
-                else
-                    resError+=("$i")
-                fi
+            if [[ "$fileRes" == "1280x720" ]] && [[ "$i" == *"_LS"* ]]; then
+                echo -e "\e[1;37m    $i"
+            elif [[ "$fileRes" == "1080x1920" ]] && [[ "$i" == *"_PR"* ]]; then
+                echo -e "\e[1;37m    $i"
+            elif [[ "$fileRes" == "1080x1080" ]] && [[ "$i" == *"_SQ"* ]]; then
+                echo -e "\e[1;37m    $i"
+            elif [[ "$fileRes" == "700x672" ]] && [[ "$i" == *"DEMO"* ]]; then
+                echo -e "\e[1;37m    $i"
+            elif [[ "$fileRes" == "672x670" ]] && [[ "$i" == *"OR"* ]]; then
+                echo -e "\e[1;37m    $i"
             else
-                nameError+=("$i")
+                echo -e "\e[1;31m    $i"
             fi
         fi
-    fi
+    done
+    cd ..
+    cd "./_Motions"
+    for i in *; do
+        if [[ "$i" != *"*"* ]] || [[ "$i" != *".db"* ]]; then
+            fileRes=$(ffprobe -v quiet -select_streams v:0 -show_entries stream=width,height -of csv=s=x:p=0 "$i")
+            if [[ "$fileRes" == "1280x720" ]] && [[ "$i" == *"_LS"* ]]; then
+                echo -e "\e[1;37m    $i"
+            elif [[ "$fileRes" == "1080x1920" ]] && [[ "$i" == *"_PR"* ]]; then
+                echo -e "\e[1;37m    $i"
+            elif [[ "$fileRes" == "1080x1080" ]] && [[ "$i" == *"_SQ"* ]]; then
+                echo -e "\e[1;37m    $i"
+            else
+                echo -e "\e[1;31m    $i"
+            fi
+        fi
+    done
+    cd ../../
 done
 cd ..
 
-#print errors
-    if [[ "${#nameError[@]}" != 0 ]] || [[ "${#resError[@]}" != 0 ]]; then
-        echo
-        echo "  Error Processing:"
-        if [[ "${#nameError[@]}" != 0 ]]; then
-            echo
-            echo "    Wrong Names:"
-            for t in "${nameError[@]}"; do
-                echo "      $t"
-            done
+cd "./04_Worship Background/_Motions"
+for i in *; do
+    if [[ "$i" != *"*"* ]] || [[ "$i" != *".db"* ]]; then
+        fileRes=$(ffprobe -v quiet -select_streams v:0 -show_entries stream=width,height -of csv=s=x:p=0 "$i")
+        if [[ "$fileRes" == "1920x1080" ]] && [[ "$i" == *"_HD"* ]]; then
+            echo -e "\e[1;37m    $i"
+        elif [[ "$fileRes" == "1440x1080" ]] && [[ "$i" == *"_SD"* ]]; then
+            echo -e "\e[1;37m    $i"
+        elif [[ "$fileRes" == "3840x720" ]] && [[ "$i" == *"_HD"* ]] && [[ "$i" == *"UW_"* ]]; then
+            echo -e "\e[1;37m    $i"
+        elif [[ "$fileRes" == "1920x480" ]] && [[ "$i" == *"_SD"* ]] && [[ "$i" == *"UW_"* ]]; then
+            echo -e "\e[1;37m    $i"
+        else
+            echo -e "\e[1;31m    $i"
         fi
-        if [[ "${#resError[@]}" != 0 ]]; then
-            echo "    Wrong Resolutions:"
-            for t in "${resError[@]}"; do
-            echo "      $t"
-            done
-            echo
-        fi
-        echo
     fi
-#
+done
+cd ../../
 
-# print arrays
-    if [[ "${#collectionArray[@]}" != 0 ]]; then
-        echo "  Collection Images:"
-        for t in "${collectionArray[@]}"; do
-            echo "    $t"
-        done
+cd "./05_Countdown & Trivia/_Motions"
+for i in *; do
+    if [[ "$i" != *"*"* ]] || [[ "$i" != *".db"* ]]; then
+        fileRes=$(ffprobe -v quiet -select_streams v:0 -show_entries stream=width,height -of csv=s=x:p=0 "$i")
+        if [[ "$fileRes" == "1920x1080" ]] && [[ "$i" == *"_HD"* ]]; then
+            echo -e "\e[1;37m    $i"
+        elif [[ "$fileRes" == "1440x1080" ]] && [[ "$i" == *"_SD"* ]]; then
+            echo -e "\e[1;37m    $i"
+        else
+            echo -e "\e[1;31m    $i"
+        fi
     fi
-    if [[ "${#titleArray[@]}" != 0 ]]; then
-        echo "  Titles:"
-        for t in "${titleArray[@]}"; do
-            echo "    $t"
-        done
+done
+cd ../../
+
+cd "./06_Bumper/_Motions"
+for i in *; do
+    if [[ "$i" != *"*"* ]] || [[ "$i" != *".db"* ]]; then
+        fileRes=$(ffprobe -v quiet -select_streams v:0 -show_entries stream=width,height -of csv=s=x:p=0 "$i")
+        if [[ "$fileRes" == "1920x1080" ]] && [[ "$i" == *"_HD"* ]]; then
+            echo -e "\e[1;37m    $i"
+        elif [[ "$fileRes" == "1440x1080" ]] && [[ "$i" == *"_SD"* ]]; then
+            echo -e "\e[1;37m    $i"
+        else
+            echo -e "\e[1;31m    $i"
+        fi
     fi
-    if [[ "${#altArray[@]}" != 0 ]]; then
-        echo "  Worship Backgrounds:"
-        for t in "${altArray[@]}"; do
-            echo "    $t"
-        done
-    fi
-    if [[ "${#uwArray[@]}" != 0 ]]; then
-        echo "  Ultra-Wides:"
-        for t in "${uwArray[@]}"; do
-            echo "    $t"
-        done
-    fi
-    if [[ "${#l3Array[@]}" != 0 ]]; then
-        echo "  Lower Thirds:"
-        for t in "${l3Array[@]}"; do
-            echo "    $t"
-        done
-    fi   
-    if [[ "${#cdArray[@]}" != 0 ]]; then
-        echo "  Countdowns:"
-        for t in "${cdArray[@]}"; do
-            echo "    $t"
-        done
-    fi
-    if [[ "${#tvArray[@]}" != 0 ]]; then
-        echo "  Trivia Countdowns:"
-        for t in "${tvArray[@]}"; do
-            echo "    $t"
-        done
-    fi
-    if [[ "${#bpArray[@]}" != 0 ]]; then
-        echo "  Bumpers:"
-        for t in "${bpArray[@]}"; do
-            echo "    $t"
-        done
-    fi
-    if [[ "${#socialArray[@]}" != 0 ]]; then
-        echo "  Socials:"
-        for t in "${socialArray[@]}"; do
-            echo "    $t"
-        done
-    fi
-    if [[ "${#ppArray[@]}" != 0 ]]; then
-        echo "  PowerPoints:"
-        for t in "${ppArray[@]}"; do
-            echo "    $t"
-        done
-    fi
-    if [[ "${#aeProjArray[@]}" != 0 ]]; then
-        echo "  After Effects Projects:"
-        for t in "${aeProjArray[@]}"; do
-            echo "    $t"
-        done
-    fi
-    echo
-#
+done
+cd ../../
