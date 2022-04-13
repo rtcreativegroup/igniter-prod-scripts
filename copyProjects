@@ -1,22 +1,16 @@
 #!/bin/bash
 
-uploadsPath="$1"
-filePrefix="$3"
-lookName="$4"
-projName="$5"
+echo "  Copying Photoshop Projects to Uploads"
+
+newPath="$1"
+filePrefix="$2"
 
 for i in *.psd *.zip; do
-    if [[ "$oneLook" == "FALSE" ]]; then 
-        stillPath="${uploadsPath}${projName}_UPLOADS/${lookName}/Images/${filePrefix}_$i"
-        motionPath="${uploadsPath}${projName}_UPLOADS/${lookName}/Motions/${filePrefix}_$i"
-    elif [[ "$oneLook" == "TRUE" ]]; then
-        stillPath="${uploadsPath}${projName}_UPLOADS/Images/${filePrefix}_$i"
-        motionPath="${uploadsPath}${projName}_UPLOADS/Motions/${filePrefix}_$i"
-    fi
+    newName="${newPath}${filePrefix}_$i"
 
     if [[ "$i" == *".psd"* ]]; then
-        cp -p "$i" "$stillPath"
-    elif [[ "$i" == *".zip"* ]]; then
-        mv -p "$i" "$motionPath"
+        cp -p "Copying " "$i" "$newName"
+    elif [[ "$i" == *".zip"* ]] && [[ "$i" != *"*.zip"* ]]; then
+        mv -p "Moving " "$i" "$newName"
     fi
 done

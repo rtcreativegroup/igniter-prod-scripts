@@ -1,5 +1,7 @@
 #!/bin/bash
 
+echo "  Generating Thumbnails"
+
 frameNum="$1"
 filter1="$2"
 filter2="$3"

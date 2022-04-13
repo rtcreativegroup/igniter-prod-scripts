@@ -1,5 +1,7 @@
 #!/bin/bash
 
+echo "  Compressing Countdowns & Trivia"
+
 for i in *.mov; do
     if [[ "$i" == *"Countdown_"* ]] || [[ "$i" == *"Trivia_"* ]]; then
         fileName=${i%".mov"}.mp4

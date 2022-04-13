@@ -1,20 +1,15 @@
 #!/bin/bash
 
-uploadsPath="$1"
-filePrefix="$3"
-lookName="$4"
-projName="$5"
+echo "  Copying Motions to Uploads"
+
+newPath="$1"
+filePrefix="$2"
 
 for i in *.mov *.jpg *.mp4; do
-    if [[ "$oneLook" == "FALSE" ]]; then 
-        motionPath="${uploadsPath}${projName}_UPLOADS/${lookName}/Motions/${filePrefix}_$i"
-    elif [[ "$oneLook" == "TRUE" ]]; then
-        motionPath="${uploadsPath}${projName}_UPLOADS/Motions/${filePrefix}_$i"
-    fi
-
-    if ([[ "$i" == *"Countdown_"* ]] && [[ "$i" == *".mov"* ]]) || ([[ "$i" == *"Trivia_"* ]] && [[ "$i" == *".mov"* ]]); then
+    newName="${newPath}${filePrefix}_$i"
+    if ([[ "$i" == *"Countdown_"* ]] && [[ "$i" == *".mov"* ]]) || ([[ "$i" == *"Trivia_"* ]] && [[ "$i" == *".mov"* ]]) || [[ "$i" == *"*.mp4"* ]] || [[ "$i" == *"*.mov"* ]] || [[ "$i" == *"*.jpg"* ]]; then
         dontCopy="TRUE"
     else
-        cp -p "$i" "$motionPath"
+        cp -p "$i" "$newName"
     fi
 done

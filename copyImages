@@ -1,10 +1,9 @@
 #!/bin/bash
 
-uploadsPath="$1"
-oneLook="$2"
-filePrefix="$3"
-lookName="$4"
-projName="$5"
+echo "  Copying Images to Uploads"
+
+newPath="$1"
+filePrefix="$2"
 
 # sorting identifiers
     suffixWIDE="_WIDE"
@@ -60,11 +59,7 @@ projName="$5"
 #
 
 for i in *.jpg *.png; do
-    if [[ "$oneLook" == "FALSE" ]]; then 
-        stillPath="${uploadsPath}${projName}_UPLOADS/${lookName}/Images/${filePrefix}_$i"
-    elif [[ "$oneLook" == "TRUE" ]]; then
-        stillPath="${uploadsPath}${projName}_UPLOADS/Images/${filePrefix}_$i"
-    fi
+    newName="${newPath}${filePrefix}_$i"
 
     if [[ "$i" == *".jpg"* ]]; then
         fileType=".jpg"
@@ -73,44 +68,44 @@ for i in *.jpg *.png; do
     fi
 
     if [[ "$i" == *"$prefixTT1"* ]]; then
-        cp -p "$i" "${stillPath%"$fileType"}${presetTT1}$fileType"
+        cp -p "$i" "${newName%"$fileType"}${presetTT1}$fileType"
     elif [[ "$i" == *"$prefixTT2"* ]]; then
-        cp -p "$i" "${stillPath%"$fileType"}${presetTT2}$fileType"
+        cp -p "$i" "${newName%"$fileType"}${presetTT2}$fileType"
     elif [[ "$i" == *"$prefixTT3"* ]]; then
-        cp -p "$i" "${stillPath%"$fileType"}${presetTT3}$fileType"
+        cp -p "$i" "${newName%"$fileType"}${presetTT3}$fileType"
     elif [[ "$i" == *"$prefixAlt1"* ]]; then
-        cp -p "$i" "${stillPath%"$fileType"}${presetAlt1}$fileType"
+        cp -p "$i" "${newName%"$fileType"}${presetAlt1}$fileType"
     elif [[ "$i" == *"$prefixAlt2"* ]]; then
-        cp -p "$i" "${stillPath%"$fileType"}${presetAlt2}$fileType"
+        cp -p "$i" "${newName%"$fileType"}${presetAlt2}$fileType"
     elif [[ "$i" == *"$prefixL3"* ]] && [[ "$i" != *"$thumbnail"* ]] && [[ "$i" != *"$preview"* ]] && [[ "$i" == *"$suffixWIDE"* ]]; then
-        cp -p "$i" "${stillPath%"$fileType"}${presetL3WIDE}$fileType"
+        cp -p "$i" "${newName%"$fileType"}${presetL3WIDE}$fileType"
     elif [[ "$i" == *"$prefixL3"* ]] && [[ "$i" != *"$thumbnail"* ]] && [[ "$i" != *"$preview"* ]] && [[ "$i" == *"$suffixSTD"* ]]; then
-        cp -p "$i" "${stillPath%"$fileType"}${presetL3STD}$fileType"
+        cp -p "$i" "${newName%"$fileType"}${presetL3STD}$fileType"
     elif [[ "$i" == *"$prefixL3"* ]] && [[ "$i" == *"$thumbnail"* ]] && [[ "$i" != *"$preview"* ]]; then
-        cp -p "$i" "${stillPath%"$fileType"}${presetL3TH}$fileType"
+        cp -p "$i" "${newName%"$fileType"}${presetL3TH}$fileType"
     elif [[ "$i" == *"$prefixL3"* ]] && [[ "$i" != *"$thumbnail"* ]] && [[ "$i" == *"$preview"* ]]; then
-        cp -p "$i" "${stillPath%"$fileType"}${presetL3PV}$fileType"
+        cp -p "$i" "${newName%"$fileType"}${presetL3PV}$fileType"
     elif [[ "$i" == *"$suffixDEMO"* ]]; then
-        cp -p "$i" "${stillPath%"$fileType"}${presetSDEMO}$fileType"
+        cp -p "$i" "${newName%"$fileType"}${presetSDEMO}$fileType"
     elif [[ "$i" == *"$suffixOR"* ]]; then
-        cp -p "$i" "${stillPath%"$fileType"}${presetSOR}$fileType"
+        cp -p "$i" "${newName%"$fileType"}${presetSOR}$fileType"
     elif [[ "$i" == *"$suffixLS"* ]] && [[ "$i" != *"$blank"* ]] && [[ "$i" != *"$transparent"* ]]; then
-        cp -p "$i" "${stillPath%"$fileType"}${presetSLS1}$fileType"
+        cp -p "$i" "${newName%"$fileType"}${presetSLS1}$fileType"
     elif [[ "$i" == *"$suffixPR"* ]] && [[ "$i" != *"$blank"* ]] && [[ "$i" != *"$transparent"* ]]; then
-        cp -p "$i" "${stillPath%"$fileType"}${presetSPR1}$fileType"
+        cp -p "$i" "${newName%"$fileType"}${presetSPR1}$fileType"
     elif [[ "$i" == *"$suffixSQ"* ]] && [[ "$i" != *"$blank"* ]] && [[ "$i" != *"$transparent"* ]]; then
-        cp -p "$i" "${stillPath%"$fileType"}${presetSSQ1}$fileType"
+        cp -p "$i" "${newName%"$fileType"}${presetSSQ1}$fileType"
     elif [[ "$i" == *"$suffixLS"* ]] && [[ "$i" == *"$blank"* ]] && [[ "$i" != *"$transparent"* ]]; then
-        cp -p "$i" "${stillPath%"$fileType"}${presetSLS2}$fileType"
+        cp -p "$i" "${newName%"$fileType"}${presetSLS2}$fileType"
     elif [[ "$i" == *"$suffixPR"* ]] && [[ "$i" == *"$blank"* ]] && [[ "$i" != *"$transparent"* ]]; then
-        cp -p "$i" "${stillPath%"$fileType"}${presetSPR2}$fileType"
+        cp -p "$i" "${newName%"$fileType"}${presetSPR2}$fileType"
     elif [[ "$i" == *"$suffixSQ"* ]] && [[ "$i" == *"$blank"* ]] && [[ "$i" != *"$transparent"* ]]; then
-        cp -p "$i" "${stillPath%"$fileType"}${presetSSQ2}$fileType"
+        cp -p "$i" "${newName%"$fileType"}${presetSSQ2}$fileType"
     elif [[ "$i" == *"$suffixLS"* ]] && [[ "$i" != *"$blank"* ]] && [[ "$i" == *"$transparent"* ]]; then
-        cp -p "$i" "${stillPath%"$fileType"}${presetSLS3}$fileType"
+        cp -p "$i" "${newName%"$fileType"}${presetSLS3}$fileType"
     elif [[ "$i" == *"$suffixPR"* ]] && [[ "$i" != *"$blank"* ]] && [[ "$i" == *"$transparent"* ]]; then
-        cp -p "$i" "${stillPath%"$fileType"}${presetSPR3}$fileType"
+        cp -p "$i" "${newName%"$fileType"}${presetSPR3}$fileType"
     elif [[ "$i" == *"$suffixSQ"* ]] && [[ "$i" != *"$blank"* ]] && [[ "$i" == *"$transparent"* ]]; then
-        cp -p "$i" "${stillPath%"$fileType"}${presetSSQ3}$fileType"
+        cp -p "$i" "${newName%"$fileType"}${presetSSQ3}$fileType"
     fi
 done
