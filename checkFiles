@@ -1,0 +1,144 @@
+#!/bin/bash
+
+cd "./02_Title"
+for i in *; do
+    cd "./$i/_Images"
+    for i in *; do
+        if [[ "$i" != *"*"* ]] || [[ "$i" != *".db"* ]]; then
+            fileRes=$(ffprobe -v quiet -select_streams v:0 -show_entries stream=width,height -of csv=s=x:p=0 "$i")
+            if [[ "$fileRes" == "1920x1080" ]] && [[ "$i" == *"_WIDE"* ]]; then
+                if [[ "$i" == *"ALT1_"* ]] || [[ "$i" == *"ALT2_"* ]]; then
+                    echo -e "\e[1;37m    $i"
+                elif [[ "$i" == *"L3_"* ]]; then
+                    echo -e "\e[1;37m    $i"
+                elif [[ "$i" == *"TT1_"* ]] || [[ "$i" == *"TT2_"* ]] || [[ "$i" == *"TT3_"* ]]; then
+                    echo -e "\e[1;37m    $i"
+                else
+                    echo -e "\e[1;31m    $i"
+                fi
+            elif [[ "$fileRes" == "1440x1080" ]] && [[ "$i" == *"_STD"* ]]; then
+                if [[ "$i" == *"ALT1_"* ]] || [[ "$i" == *"ALT2_"* ]]; then
+                    echo -e "\e[1;37m    $i"
+                elif [[ "$i" == *"L3_"* ]]; then
+                    echo -e "\e[1;37m    $i"
+                elif [[ "$i" == *"TT1_"* ]] || [[ "$i" == *"TT2_"* ]] || [[ "$i" == *"TT3_"* ]]; then
+                    echo -e "\e[1;37m    $i"
+                else
+                    echo -e "\e[1;31m    $i"
+                fi
+            elif [[ "$fileRes" == "1280x720" ]] && [[ "$i" == *"_TH_"* ]] && [[ "$i" == *"_WIDE"* ]]; then
+                echo -e "\e[1;37m    $i"
+            else
+                echo -e "\e[1;31m    $i"
+            fi
+        fi
+    done
+    cd ..
+    cd "./_Motions"
+    for i in *; do
+        if [[ "$i" != *"*"* ]] || [[ "$i" != *".db"* ]]; then
+            fileRes=$(ffprobe -v quiet -select_streams v:0 -show_entries stream=width,height -of csv=s=x:p=0 "$i")
+            if [[ "$fileRes" == "1920x1080" ]] && [[ "$i" == *"_HD"* ]]; then
+                echo -e "\e[1;37m    $i"
+            elif [[ "$fileRes" == "1440x1080" ]] && [[ "$i" == *"_SD"* ]]; then
+                echo -e "\e[1;37m    $i"
+            elif [[ "$i" == *"_HD"* ]] || [[ "$i" == *"_SD"* ]]; then
+                echo -e "\e[1;31m    $i"
+            else
+                echo -e "\e[1;31m    $i"
+            fi
+        fi
+    done
+    cd ../../
+done
+cd ..
+
+cd "./03_Social"
+for i in *; do
+    cd "./$i/_Images"
+    for i in *; do
+        if [[ "$i" != *"*"* ]] || [[ "$i" != *".db"* ]]; then
+            fileRes=$(ffprobe -v quiet -select_streams v:0 -show_entries stream=width,height -of csv=s=x:p=0 "$i")
+            if [[ "$fileRes" == "1280x720" ]] && [[ "$i" == *"_LS"* ]]; then
+                echo -e "\e[1;37m    $i"
+            elif [[ "$fileRes" == "1080x1920" ]] && [[ "$i" == *"_PR"* ]]; then
+                echo -e "\e[1;37m    $i"
+            elif [[ "$fileRes" == "1080x1080" ]] && [[ "$i" == *"_SQ"* ]]; then
+                echo -e "\e[1;37m    $i"
+            elif [[ "$fileRes" == "700x672" ]] && [[ "$i" == *"DEMO"* ]]; then
+                echo -e "\e[1;37m    $i"
+            elif [[ "$fileRes" == "672x670" ]] && [[ "$i" == *"OR"* ]]; then
+                echo -e "\e[1;37m    $i"
+            else
+                echo -e "\e[1;31m    $i"
+            fi
+        fi
+    done
+    cd ..
+    cd "./_Motions"
+    for i in *; do
+        if [[ "$i" != *"*"* ]] || [[ "$i" != *".db"* ]]; then
+            fileRes=$(ffprobe -v quiet -select_streams v:0 -show_entries stream=width,height -of csv=s=x:p=0 "$i")
+            if [[ "$fileRes" == "1280x720" ]] && [[ "$i" == *"_LS"* ]]; then
+                echo -e "\e[1;37m    $i"
+            elif [[ "$fileRes" == "1080x1920" ]] && [[ "$i" == *"_PR"* ]]; then
+                echo -e "\e[1;37m    $i"
+            elif [[ "$fileRes" == "1080x1080" ]] && [[ "$i" == *"_SQ"* ]]; then
+                echo -e "\e[1;37m    $i"
+            else
+                echo -e "\e[1;31m    $i"
+            fi
+        fi
+    done
+    cd ../../
+done
+cd ..
+
+cd "./04_Worship Background/_Motions"
+for i in *; do
+    if [[ "$i" != *"*"* ]] || [[ "$i" != *".db"* ]]; then
+        fileRes=$(ffprobe -v quiet -select_streams v:0 -show_entries stream=width,height -of csv=s=x:p=0 "$i")
+        if [[ "$fileRes" == "1920x1080" ]] && [[ "$i" == *"_HD"* ]]; then
+            echo -e "\e[1;37m    $i"
+        elif [[ "$fileRes" == "1440x1080" ]] && [[ "$i" == *"_SD"* ]]; then
+            echo -e "\e[1;37m    $i"
+        elif [[ "$fileRes" == "3840x720" ]] && [[ "$i" == *"_HD"* ]] && [[ "$i" == *"UW_"* ]]; then
+            echo -e "\e[1;37m    $i"
+        elif [[ "$fileRes" == "1920x480" ]] && [[ "$i" == *"_SD"* ]] && [[ "$i" == *"UW_"* ]]; then
+            echo -e "\e[1;37m    $i"
+        else
+            echo -e "\e[1;31m    $i"
+        fi
+    fi
+done
+cd ../../
+
+cd "./05_Countdown & Trivia/_Motions"
+for i in *; do
+    if [[ "$i" != *"*"* ]] || [[ "$i" != *".db"* ]]; then
+        fileRes=$(ffprobe -v quiet -select_streams v:0 -show_entries stream=width,height -of csv=s=x:p=0 "$i")
+        if [[ "$fileRes" == "1920x1080" ]] && [[ "$i" == *"_HD"* ]]; then
+            echo -e "\e[1;37m    $i"
+        elif [[ "$fileRes" == "1440x1080" ]] && [[ "$i" == *"_SD"* ]]; then
+            echo -e "\e[1;37m    $i"
+        else
+            echo -e "\e[1;31m    $i"
+        fi
+    fi
+done
+cd ../../
+
+cd "./06_Bumper/_Motions"
+for i in *; do
+    if [[ "$i" != *"*"* ]] || [[ "$i" != *".db"* ]]; then
+        fileRes=$(ffprobe -v quiet -select_streams v:0 -show_entries stream=width,height -of csv=s=x:p=0 "$i")
+        if [[ "$fileRes" == "1920x1080" ]] && [[ "$i" == *"_HD"* ]]; then
+            echo -e "\e[1;37m    $i"
+        elif [[ "$fileRes" == "1440x1080" ]] && [[ "$i" == *"_SD"* ]]; then
+            echo -e "\e[1;37m    $i"
+        else
+            echo -e "\e[1;31m    $i"
+        fi
+    fi
+done
+cd ../../
