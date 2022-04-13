@@ -1,0 +1,8 @@
+#!/bin/bash
+
+for i in *.mov; do
+    if [[ "$i" == *"Countdown_"* ]] || [[ "$i" == *"Trivia_"* ]]; then
+        fileName=${i%".mov"}.mp4
+        ffmpeg -loglevel quiet -y -i "$i" -c:v libx264 -x264-params "nal-hrd=cbr" -b:v 3M -minrate 3M -maxrate 3M -bufsize 5M -c:a aac -b:a 192k -pix_fmt yuv420p "$fileName"
+    fi
+done

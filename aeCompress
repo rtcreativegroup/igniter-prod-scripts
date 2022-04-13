@@ -1,7 +1,0 @@
-#!/bin/bash
-
-for i in ./*
-do
-echo "$i"
-zip -r "${i%/}#preset=aep_zip.zip" "${i%/}"
-done

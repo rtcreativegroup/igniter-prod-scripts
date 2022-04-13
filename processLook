@@ -1,0 +1,60 @@
+#!/bin/bash
+
+scriptPath="$1"
+filePrefix="$2"
+uploadsPath="$3"
+oneLook="$4"
+lookName="$5"
+projName="$6"
+
+ttFrame=1
+wbFrame=1
+uwFrame=1
+cdFrame=1
+bpFrame=1
+
+echo "Processing Files for $filePrefix"
+
+cd "./02_Title"
+for i in *; do
+    cd "./$i/_Images"
+    bash ${scriptPath}copyImages "$uploadsPath" "$oneLook" "$filePrefix" "$lookName" "$projName"
+    cd ..
+    cd "./_Motions"
+    bash ${scriptPath}generateThumbs $ttFrame "_HD"
+    bash ${scriptPath}copyMotions "$uploadsPath" "$oneLook" "$filePrefix" "$lookName" "$projName"
+    cd ..
+    bash ${scriptPath}compressAE
+    bash ${scriptPath}copyProjects "$uploadsPath" "$oneLook" "$filePrefix" "$lookName" "$projName"
+    cd ..
+done
+cd ..
+
+cd "./03_Social"
+for i in *; do
+    cd "./$i/_Images"
+    bash ${scriptPath}copyImages "$uploadsPath" "$oneLook" "$filePrefix" "$lookName" "$projName"
+    cd ..
+    cd "./_Motions"
+    bash ${scriptPath}copyMotions "$uploadsPath" "$oneLook" "$filePrefix" "$lookName" "$projName"
+    cd ../../
+done
+cd ..
+
+cd "./04_Worship Background/_Motions"
+bash ${scriptPath}generateThumbs $wbFrame "WB_" "_HD"
+bash ${scriptPath}generateThumbs $uwFrame "UW_" "_SD"
+bash ${scriptPath}copyMotions "$uploadsPath" "$oneLook" "$filePrefix" "$lookName" "$projName"
+cd ../../
+
+cd "./05_Countdown & Trivia/_Motions"
+bash ${scriptPath}generateThumbs $cdFrame "Countdown_" "_HD"
+bash ${scriptPath}generateThumbs $tvFrame "Trivia_" "_HD"
+bash ${scriptPath}compressCD
+bash ${scriptPath}copyMotions "$uploadsPath" "$oneLook" "$filePrefix" "$lookName" "$projName"
+cd ../../
+
+cd "./06_Bumper/_Motions"
+bash ${scriptPath}generateThumbs $bpFrame "Bumper_" "_HD"
+bash ${scriptPath}copyMotions "$uploadsPath" "$oneLook" "$filePrefix" "$lookName" "$projName"
+cd ../../

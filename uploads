@@ -1,0 +1,93 @@
+#!/bin/bash
+
+# check OS, establish filePaths
+    OS=$(uname)
+    if [[ $OS == "Darwin" ]]; then
+        userName=$(whoami)
+        scriptPath="/Users/$userName/Documents/Github/IG_Scripts/"
+        workingPath="/Volumes/Storage Consolidation/Design Primary/_PRODUCTS/_Working/"
+        uploadsPath="/Volumes/Storage Consolidation/Design Primary/_PRODUCTS/_Uploads/"
+    elif [[ $OS == "Linux" ]]; then
+        scriptPath="/mnt/c/Users/jere.baker/Documents/GitHub/IG_Scripts/"
+        workingPath="/mnt/q/Design Primary/_PRODUCTS/_Working/"
+        uploadsPath="/mnt/q/Design Primary/_PRODUCTS/_Uploads/"
+    else
+        echo "Not able to detect Operating System"
+        exit
+    fi
+
+    if [[ ! -d "${workingPath}" ]]; then
+        echo "Server not connected"
+        exit
+    fi
+#
+
+# pick active project, move to directory
+    cd "$workingPath"
+    projNum=1
+    echo "Available Projects: "
+    for i in *; do
+        projOptions+=("$i")
+        echo "${projNum}. $i"
+        projNum=$(($projNum + 1))
+    done
+    echo
+
+    read -p "Which project? (type the number and hit enter) " pickProj
+    if [[ "$pickProj" -gt -1 ]] && [[ "$pickProj" -le "${#projOptions[@]}" ]] && [[ "$pickProj" =~ ^[0-9]+$ ]]; then
+        workingPath="${projOptions[(($pickProj-1))]}"
+        projName=${projOptions[(($pickProj-1))]%"_MASTER"}
+    else
+        clear
+        echo
+        echo "Invalid Input. Try again"
+        echo
+        exit
+    fi
+
+    cd "$workingPath"
+    clear
+#
+
+# check if there is more than one look variation
+    oneLook="FALSE"
+    for i in *; do
+        if [[ "$i" == *"01_Marketing"* ]]; then
+            oneLook="TRUE"
+        fi
+    done
+#
+
+# run master program on each look variation
+    if [[ "$oneLook" == *"FALSE"* ]]; then
+        echo
+        for i in */; do
+            if [[ "$i" != *"00_"* ]]; then
+                cd "./$i"
+                bash ${scriptPath}checkFiles "$scriptPath"
+                cd ..
+            fi
+        done
+        echo
+        read -p "Press enter to continue or CTRL-C to cancel"
+        echo
+        for i in */; do
+            if [[ "$i" != *"00_"* ]]; then
+                cd "./$i"
+                filePrefix="${projName}_${i}"
+                lookName="$i"
+                bash ${scriptPath}processLook "$scriptPath" "$filePrefix" "$uploadsPath" "$oneLook" "$lookName" "$projName"
+                cd ..
+            fi
+        done
+    else
+        echo
+        filePrefix="$projName"
+        echo $filePrefix
+        #bash ${scriptPath}checkFiles "$scriptPath"
+        echo
+        read -p "Press enter to continue or CTRL-C to cancel"
+        echo
+        bash ${scriptPath}processLook "$scriptPath" "$filePrefix" "$uploadsPath" "$oneLook" "$lookName" "$projName"
+    fi
+#

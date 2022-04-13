@@ -1,0 +1,47 @@
+#!/bin/bash
+
+suffixWIDE="_WIDE"
+suffixSTD="_STD"
+suffixLS="_LS"
+suffixPR="_PR"
+suffixSQ="_SQ"
+suffixDEMO="_DEMO"
+suffixOR="_OR"
+
+thumbnail="_TH_"
+preview="_PV_"
+
+prefixTT1="TT1_"
+prefixTT2="TT2_"
+prefixTT3="TT3_"
+prefixAlt1="ALT1_"
+prefixAlt2="ALT2_"
+prefixL3="L3_"
+
+resWIDE="1920x1080"
+resSTD="1440x1080"
+resLS="1280x720"
+resPR="1080x1920"
+resSQ="1080x1080"
+resOR="672x670"
+resDEMO="700x672"
+
+for i in *.jpg *.png; do
+    fileRes=$(ffprobe -v quiet -select_streams v:0 -show_entries stream=width,height -of csv=s=x:p=0 "$i")
+    if [[ "$i" == *"$suffixWIDE"* ]] || [[ "$i" == *"$suffixSTD"* ]] || [[ "$i" == *"$suffixLS"* ]] || [[ "$i" == *"$suffixPR"* ]] || [[ "$i" == *"$suffixSQ"* ]] || [[ "$i" == *"$suffixLS"* ]] || [[ "$i" == *"$suffixOR"* ]] || [[ "$i" == *"$suffixDEMO"* ]]; then
+        check="Success"
+    else
+        echo "  Incorrect Suffix for: $i"
+    fi
+    if [[ "$i" == *"$prefixTT1"* ]] || [[ "$i" == *"$prefixTT2"* ]] || [[ "$i" == *"$prefixTT3"* ]] || [[ "$i" == *"$prefixAlt1"* ]] || [[ "$i" == *"$prefixAlt2"* ]] || [[ "$i" == *"$prefixL3"* ]] || [[ "$i" == *"$thumbnail"* ]] || [[ "$i" == *"$preview"* ]] || [[ "$i" == *"$suffixLS"* ]] || [[ "$i" == *"$suffixPR"* ]] || [[ "$i" == *"$suffixSQ"* ]] || [[ "$i" == *"$suffixOR"* ]] || [[ "$i" == *"$suffixDEMO"* ]]; then
+        check="Success"
+    else 
+        echo "  Incorrect Prefix for: $i"
+    fi
+    if ([[ "$fileRes" == "$resWIDE" ]] && [[ "$i" == *"$suffixWIDE"* ]]) || ([[ "$fileRes" == "$resSTD" ]] && [[ "$i" == *"$suffixSTD"* ]]) || ([[ "$fileRes" == "$resLS" ]] && [[ "$i" == *"$suffixLS"* ]]) || ([[ "$fileRes" == "$resPR" ]] && [[ "$i" == *"$suffixPR"* ]]) || ([[ "$fileRes" == "$resSQ" ]] && [[ "$i" == *"$suffixSQ"* ]]) || ([[ "$fileRes" == "$resLS" ]] && [[ "$i" == *"$thumbnail"* ]]) || ([[ "$fileRes" == "$resOR" ]] && [[ "$i" == *"$suffixOR"* ]]) || ([[ "$fileRes" == "$resDEMO" ]] && [[ "$i" == *"$suffixDEMO"* ]]); then
+        check="Success"
+    else
+        echo "  Incorrect Resolution for: $i"
+        echo "    Resolution Found: $fileRes"
+    fi
+done

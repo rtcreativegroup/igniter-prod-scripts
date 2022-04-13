@@ -1,0 +1,14 @@
+#!/bin/bash
+
+for i in *; do
+    if [[ "$i" == *"_AE"* ]]; then
+        dirSize=$(du -hs "./$i")
+        dirNum=${dirSize%M*}
+        dirNum=${dirNum%G*}
+        if [[ $dirNum < 2 ]] || [[ $dirNum > 10 ]]; then
+            check="Success"
+        else
+            echo "  AE Folder Too Large: $dirSize"
+        fi
+    fi
+done
