@@ -18,8 +18,8 @@ echo
 
 echo "Processing Files for $filePrefix"
 if [[ "$oneLook" == "FALSE" ]]; then 
-    newImagesPath="${uploadsPath}${projName}_UPLOADS/${lookName}/Images/"
-    newMotionsPath="${uploadsPath}${projName}_UPLOADS/${lookName}/Motions/"
+    newImagesPath="${uploadsPath}${projName}_UPLOADS/${lookName}Images/"
+    newMotionsPath="${uploadsPath}${projName}_UPLOADS/${lookName}Motions/"
 elif [[ "$oneLook" == "TRUE" ]]; then
     newImagesPath="${uploadsPath}${projName}_UPLOADS/Images/"
     newMotionsPath="${uploadsPath}${projName}_UPLOADS/Motions/"
@@ -53,6 +53,7 @@ cd ..
 
 cd "./04_Worship Background/_Motions"
 bash ${scriptPath}generateThumbs $wbFrame "WB_" "_HD"
+bash ${scriptPath}generateThumbs $wbFrame "WB_" "_SD"
 bash ${scriptPath}generateThumbs $uwFrame "UW_" "_SD"
 bash ${scriptPath}copyMotions "$newMotionsPath" "$filePrefix"
 cd ../../

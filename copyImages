@@ -5,6 +5,7 @@ echo "  Copying Images to Uploads"
 newPath="$1"
 filePrefix="$2"
 
+
 # sorting identifiers
     suffixWIDE="_WIDE"
     suffixSTD="_STD"

@@ -4,6 +4,6 @@ echo "  Compressing After Effects Title Project Folder"
 
 for i in *; do
     if [[ "$i" == *"_AE"* ]] && [[ -d $i ]]; then
-        zip -r -X "${i}#preset=aep_zip.zip" "${i}"
+        zip -r -X -q "${i}#preset=aep_zip.zip" "${i}"
     fi
 done

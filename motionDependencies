@@ -8,16 +8,36 @@ sudo apt-get update
 sudo apt-get upgrade
 brew install gcc
 brew install ffmpeg
+brew install imagemagick
 brew upgrade
 brew update
 
-#alias reference
-alias test="/mnt/c/Users/jere.baker/Documents/GitHub/test"
+# alias reference for windows
 alias addAlias="sudo nano .bashrc"
-alias fileProcess="/mnt/c/Users/jere.baker/Documents/GitHub/IG_Scripts/IG_fileProcess"
-alias aeCompress="/mnt/c/Users/jere.baker/Documents/GitHub/IG_Scripts/aeCompress"
-alias checkFiles="/mnt/c/Users/jere.baker/Documents/GitHub/IG_Scripts/checkFiles"
-alias copyFiles="/mnt/c/Users/jere.baker/Documents/GitHub/IG_Scripts/copyFiles"
-alias motionThumbs="/mnt/c/Users/jere.baker/Documents/GitHub/IG_Scripts/motionThumbs"
-alias projectInit="/mnt/c/Users/jere.baker/Documents/GitHub/IG_Scripts/projectInit"
+alias test="/mnt/c/Users/jere.baker/Documents/GitHub/test"
 alias sdcrop="/mnt/c/Users/jere.baker/Documents/GitHub/IG_Scripts/sdcrop"
+alias workingFolders="/mnt/c/Users/jere.baker/Documents/GitHub/IG_Scripts/workingFolders"
+alias uploads="/mnt/c/Users/jere.baker/Documents/GitHub/IG_Scripts/uploads"
+alias uploadsFolders="/mnt/c/Users/jere.baker/Documents/GitHub/IG_Scripts/uploadsFolders"
+alias checkImages="/mnt/c/Users/jere.baker/Documents/GitHub/IG_Scripts/checkImages"
+alias checkMotions="/mnt/c/Users/jere.baker/Documents/GitHub/IG_Scripts/checkMotions"
+alias generateThumbs="/mnt/c/Users/jere.baker/Documents/GitHub/IG_Scripts/generateThumbs"
+alias compressCD="/mnt/c/Users/jere.baker/Documents/GitHub/IG_Scripts/compressCD"
+alias compressAE="/mnt/c/Users/jere.baker/Documents/GitHub/IG_Scripts/compressAE"
+alias copyImages="/mnt/c/Users/jere.baker/Documents/GitHub/IG_Scripts/copyImages"
+alias copyMotions="/mnt/c/Users/jere.baker/Documents/GitHub/IG_Scripts/copyMotions"
+alias copyProjects="/mnt/c/Users/jere.baker/Documents/GitHub/IG_Scripts/copyProjects"
+
+# alias reference for mac (change username if necessary)
+alias sdcrop="~/Documents/GitHub/IG_Scripts/sdcrop"
+alias workingFolders="~/Documents/GitHub/IG_Scripts/workingFolders"
+alias uploads="~/Documents/GitHub/IG_Scripts/uploads"
+alias uploadsFolders="~/Documents/GitHub/IG_Scripts/uploadsFolders"
+alias checkImages="~/Documents/GitHub/IG_Scripts/checkImages"
+alias checkMotions="~/Documents/GitHub/IG_Scripts/checkMotions"
+alias generateThumbs="~/Documents/GitHub/IG_Scripts/generateThumbs"
+alias compressCD="~/Documents/GitHub/IG_Scripts/compressCD"
+alias compressAE="~/Documents/GitHub/IG_Scripts/compressAE"
+alias copyImages="~/Documents/GitHub/IG_Scripts/copyImages"
+alias copyMotions="~/Documents/GitHub/IG_Scripts/copyMotions"
+alias copyProjects="~/Documents/GitHub/IG_Scripts/copyProjects"

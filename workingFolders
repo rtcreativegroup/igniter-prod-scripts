@@ -59,9 +59,9 @@ makeFolders () {
 
 socialFolders () {
     mkdir -p "03_Social"
-    mkdir -p "03_Social/$2"
-    mkdir -p "03_Social/$2/_Images"
-    mkdir -p "03_Social/$2/_Motions"
+    mkdir -p "03_Social/$1"
+    mkdir -p "03_Social/$1/_Images"
+    mkdir -p "03_Social/$1/_Motions"
 }
 
 cd "$workingPath"
@@ -72,16 +72,16 @@ if (( ${#looksArray[@]} > 1 )); then
     for i in ${!looksArray[@]}; do
         mkdir -p "${looksArray[$i]}"
         cd "./${looksArray[$i]}"
-        makeFolders ${titleTypes[$i]}
+        makeFolders "${titleTypes[$i]}"
         for t in ${!socialTypes[@]}; do
-            socialFolders ${socialTypes[$i]}
+            socialFolders "${socialTypes[$t]}"
         done
         cd ..
     done
 else
-    makeFolders ${titleTypes[1]}
+    makeFolders "$titleTypes"
     for t in ${!socialTypes[@]}; do
-        socialFolders ${socialTypes[$i]}
+        socialFolders "${socialTypes[$t]}"
     done
 fi
 

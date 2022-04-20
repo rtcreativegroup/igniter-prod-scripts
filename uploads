@@ -22,7 +22,7 @@
     fi
 #
 
-# pick active project, move to directory
+# pick active project, make folders in uploads, move to working directory
     cd "$workingPath"
     projNum=1
     echo "Available Projects: "
@@ -44,12 +44,10 @@
         echo
         exit
     fi
-
-    cd "$workingPath"
-    clear
 #
 
 # check if there is more than one look variation
+    cd "$workingPath"
     oneLook="FALSE"
     for i in *; do
         if [[ "$i" == *"01_Marketing"* ]]; then
@@ -76,7 +74,7 @@
         for i in */; do
             if [[ "$i" != *"00_"* ]]; then
                 cd "./$i"
-                filePrefix="${projName}_${i}"
+                filePrefix="${projName}_$i"
                 lookName="$i"
                 bash ${scriptPath}processLook "$scriptPath" "$filePrefix" "$uploadsPath" "$oneLook" "$lookName" "$projName"
                 cd ..
@@ -85,6 +83,7 @@
     else
         echo
         filePrefix="$projName"
+
         echo "Checking File Naming and Resolutions for $filePrefix"
         bash ${scriptPath}checkFiles "$scriptPath"
         echo
