@@ -1,0 +1,11 @@
+#!/bin/bash
+
+filter1="$1"
+filter2="$2"
+
+for i in *.mov; do
+    if ([[ "$i" == *"$filter1"* ]] || [[ "$i" == *"$filter2"* ]]) && [[ "$i" != "*.mov" ]]; then
+        fileName=${i%".mov"}.mp4
+        ffmpeg -loglevel quiet -n -y -i "$i" -c:v libx264 -x264-params "nal-hrd=cbr" -b:v 3M -minrate 3M -maxrate 3M -bufsize 5M -c:a aac -b:a 192k -pix_fmt yuv420p "$fileName"
+    fi
+done

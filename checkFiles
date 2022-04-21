@@ -2,36 +2,46 @@
 
 scriptPath="$1"
 
-cd "./02_Title"
-for i in *; do
-    cd "./$i/_Images"
-    ${scriptPath}checkImages
+if [[ -d "./02_Title" ]]; then
+    cd "./02_Title"
+    for i in *; do
+        cd "./$i/_Images"
+        ${scriptPath}checkImages
+        cd ..
+        cd "./_Motions"
+        ${scriptPath}checkMotions
+        cd ../../
+    done
     cd ..
-    cd "./_Motions"
+fi
+
+if [[ -d "./03_Social" ]]; then
+    cd "./03_Social"
+    for i in *; do
+        cd "./$i/_Images"
+        ${scriptPath}checkImages
+        cd ..
+        cd "./_Motions"
+        ${scriptPath}checkMotions
+        cd ../../
+    done
+    cd ..
+fi
+
+if [[ -d "./04_Worship Background/_Motions" ]]; then
+    cd "./04_Worship Background/_Motions"
     ${scriptPath}checkMotions
     cd ../../
-done
-cd ..
+fi
 
-cd "./03_Social"
-for i in *; do
-    cd "./$i/_Images"
-    ${scriptPath}checkImages
-    cd ..
-    cd "./_Motions"
+if [[ -d "./05_Countdown & Trivia/_Motions" ]]; then
+    cd "./05_Countdown & Trivia/_Motions"
     ${scriptPath}checkMotions
     cd ../../
-done
-cd ..
+fi
 
-cd "./04_Worship Background/_Motions"
-${scriptPath}checkMotions
-cd ../../
-
-cd "./05_Countdown & Trivia/_Motions"
-${scriptPath}checkMotions
-cd ../../
-
-cd "./06_Bumper/_Motions"
-${scriptPath}checkMotions
-cd ../../
+if [[ -d "./06_Bumper/_Motions" ]]; then
+    cd "./06_Bumper/_Motions"
+    ${scriptPath}checkMotions
+    cd ../../
+fi

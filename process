@@ -1,0 +1,107 @@
+#!/bin/bash
+
+scriptPath="$1"
+filePrefix="$2"
+
+echo "Processing Files for $filePrefix"
+
+if [[ -d "./02_Title" ]]; then
+    read -p "  Input frame for Title:              " ttFrame
+fi
+if [[ -d "./04_Worship Background/_Motions" ]]; then
+    read -p "  Input frame for Worship Background: " wbFrame
+fi
+if [[ -d "./05_Ultra Wide/_Motions" ]]; then
+    read -p "  Input frame for Ultra Wide:         " uwFrame
+fi
+if [[ -d "./06_Countdown/_Motions" ]]; then
+    read -p "  Input frame for Countdown:          " cdFrame
+fi
+if [[ -d "./07_Trivia/_Motions" ]]; then
+    read -p "  Input frame for Trivia:             " tvFrame
+fi
+if [[ -d "./08_Bumper/_Motions" ]]; then
+    read -p "  Input frame for Bumper:             " bpFrame
+fi
+
+if [[ -d "./02_Title" ]]; then
+    cd "./02_Title"
+    for i in *; do
+        cd "./$i/_Images"
+        bash ${scriptPath}processFilenames "$filePrefix"
+        bash ${scriptPath}processPresets "$filePrefix"
+        cd ..
+        cd "./_Motions"
+        bash ${scriptPath}generateThumbs $ttFrame "_HD"
+        bash ${scriptPath}processFilenames "$filePrefix"
+        bash ${scriptPath}processPresets "$filePrefix"
+        cd ..
+        bash ${scriptPath}compressFolders "_AE"
+        bash ${scriptPath}processFilenames "$filePrefix"
+        bash ${scriptPath}processPresets "$filePrefix"
+        cd ..
+    done
+    cd ..
+fi
+
+if [[ -d "./03_Social" ]]; then
+cd "./03_Social"
+    for i in *; do
+        cd "./$i/_Images"
+        bash ${scriptPath}processFilenames "$filePrefix"
+        bash ${scriptPath}processPresets "$filePrefix"
+        cd ..
+        cd "./_Motions"
+        ########
+        bash ${scriptPath}compressMOV "???"
+        ########
+        bash ${scriptPath}processFilenames "$filePrefix"
+        bash ${scriptPath}processPresets "$filePrefix"
+        cd ../../
+    done
+    cd ..
+fi
+
+if [[ -d "./04_Worship Background/_Motions" ]]; then
+    cd "./04_Worship Background/_Motions"
+    bash ${scriptPath}generateThumbs $wbFrame
+    bash ${scriptPath}processFilenames "$filePrefix"
+    bash ${scriptPath}processPresets "$filePrefix"
+    cd ../../
+fi
+
+if [[ -d "./05_Ultra Wide/_Motions" ]]; then
+    cd "./05_Ultra Wide/_Motions"
+    bash ${scriptPath}generateThumbs $uwFrame "_SD"
+    bash ${scriptPath}processFilenames "$filePrefix"
+    bash ${scriptPath}processPresets "$filePrefix"
+    cd ../../
+fi
+
+if [[ -d "./06_Countdown/_Motions" ]]; then
+    cd "./06_Countdown/_Motions"
+    bash ${scriptPath}generateThumbs $cdFrame "_HD"
+    bash ${scriptPath}compressMOV
+    bash ${scriptPath}processFilenames "$filePrefix"
+    bash ${scriptPath}processPresets "$filePrefix"
+    cd ../../
+fi
+
+if [[ -d "./07_Trivia/_Motions" ]]; then
+    cd "./07_Trivia/_Motions"
+    bash ${scriptPath}generateThumbs $tvFrame "_HD"
+    bash ${scriptPath}compressMOV
+    bash ${scriptPath}processFilenames "$filePrefix"
+    bash ${scriptPath}processPresets "$filePrefix"
+    cd ../../
+fi
+
+if [[ -d "./08_Bumper/_Motions" ]]; then
+    cd "./08_Bumper/_Motions"
+    bash ${scriptPath}generateThumbs $bpFrame "_HD"
+    bash ${scriptPath}processFilenames "$filePrefix"
+    bash ${scriptPath}processPresets "$filePrefix"
+    cd ../../
+fi
+
+echo "Finished Processing Files for $filePrefix"

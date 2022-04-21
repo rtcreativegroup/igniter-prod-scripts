@@ -2,13 +2,15 @@
 
 # check OS, establish filePaths
     OS=$(uname)
+    userName=$(whoami)
     if [[ $OS == "Darwin" ]]; then
-        userName=$(whoami)
         scriptPath="/Users/$userName/Documents/Github/IG_Scripts/"
         workingPath="/Volumes/Storage Consolidation/Design Primary/_PRODUCTS/_Working/"
         uploadsPath="/Volumes/Storage Consolidation/Design Primary/_PRODUCTS/_Uploads/"
+        #workingPath="/Users/$userName/Desktop/script testing/_Working/"
+        #uploadsPath="/Users/$userName/Desktop/script testing/_Uploads/"
     elif [[ $OS == "Linux" ]]; then
-        scriptPath="/mnt/c/Users/jere.baker/Documents/GitHub/IG_Scripts/"
+        scriptPath="/mnt/c/Users/$userName/Documents/GitHub/IG_Scripts/"
         workingPath="/mnt/q/Design Primary/_PRODUCTS/_Working/"
         uploadsPath="/mnt/q/Design Primary/_PRODUCTS/_Uploads/"
     else
@@ -23,8 +25,21 @@
 #
 
 # pick active project, make folders in uploads, move to working directory
-    cd "$workingPath"
+    read -p "Is the project in _Working or _Uploads? " projLocation
+    if [[ "$projLocation" == "working" ]] || [[ "$projLocation" == "Working" ]]; then
+        projPath="$workingPath"
+        current="working"
+    elif [[ "$projLocation" == "uploads" ]] || [[ "$projLocation" == "Uploads" ]]; then
+        projPath="$uploadsPath"
+        current="uploads"
+    else 
+        echo "Invalid Input"
+        exit
+    fi
+    
+    cd "$projPath"
     projNum=1
+    echo
     echo "Available Projects: "
     for i in *; do
         projOptions+=("$i")
@@ -35,7 +50,7 @@
 
     read -p "Which project? (type the number and hit enter) " pickProj
     if [[ "$pickProj" -gt -1 ]] && [[ "$pickProj" -le "${#projOptions[@]}" ]] && [[ "$pickProj" =~ ^[0-9]+$ ]]; then
-        workingPath="${projOptions[(($pickProj-1))]}"
+        projPath="${projOptions[(($pickProj-1))]}"
         projName=${projOptions[(($pickProj-1))]%"_MASTER"}
     else
         clear
@@ -44,26 +59,31 @@
         echo
         exit
     fi
+
+    if [[ "$current" == "working" ]]; then
+        mv "./$projPath" "${uploadsPath}$projPath"
+    fi
+
+    cd "${uploadsPath}$projPath"
 #
 
 # check if there is more than one look variation
-    cd "$workingPath"
     oneLook="FALSE"
     for i in *; do
-        if [[ "$i" == *"01_Marketing"* ]]; then
+        if [[ "$i" == *"02_Title"* ]]; then
             oneLook="TRUE"
         fi
     done
 #
 
-# run master program on each look variation
+# run process on each look variation
     if [[ "$oneLook" == *"FALSE"* ]]; then
         echo
         for i in */; do
             if [[ "$i" != *"00_"* ]]; then
                 cd "./$i"
                 lookName="$i"
-                echo "Checking File Naming and Resolutions for $lookName"
+                echo "Checking File Naming and Resolutions for ${lookName%"/"}"
                 bash ${scriptPath}checkFiles "$scriptPath"
                 cd ..
             fi
@@ -75,20 +95,18 @@
             if [[ "$i" != *"00_"* ]]; then
                 cd "./$i"
                 filePrefix="${projName}_$i"
-                lookName="$i"
-                bash ${scriptPath}processLook "$scriptPath" "$filePrefix" "$uploadsPath" "$oneLook" "$lookName" "$projName"
+                bash ${scriptPath}process "$scriptPath" "$filePrefix"
                 cd ..
             fi
         done
     else
-        echo
         filePrefix="$projName"
-
+        echo
         echo "Checking File Naming and Resolutions for $filePrefix"
         bash ${scriptPath}checkFiles "$scriptPath"
         echo
         read -p "Press enter to continue or CTRL-C to cancel"
         echo
-        bash ${scriptPath}processLook "$scriptPath" "$filePrefix" "$uploadsPath" "$oneLook" "$lookName" "$projName"
+        bash ${scriptPath}process "$scriptPath" "$filePrefix"
     fi
 #

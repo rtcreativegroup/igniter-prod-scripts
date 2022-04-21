@@ -1,0 +1,136 @@
+#!/bin/bash
+
+filePrefix="$1"
+
+# sorting identifiers
+    suffixWIDE="_WIDE"
+    suffixSTD="_STD"
+    suffixLS="_LS"
+    suffixPR="_PR"
+    suffixSQ="_SQ"
+    suffixDEMO="_DEMO"
+    suffixOR="_OR"
+
+    thumbnail="_TH_"
+    preview="_PV_"
+    blank="_BL_"
+    transparent="_TP_"
+
+    prefixTT1="TT1_"
+    prefixTT2="TT2_"
+    prefixTT3="TT3_"
+    prefixAlt1="ALT1_"
+    prefixAlt2="ALT2_"
+    prefixL3="L3_"
+
+    resWIDE="1920x1080"
+    resSTD="1440x1080"
+    resLS="1280x720"
+    resPR="1080x1920"
+    resSQ="1080x1080"
+    resOR="672x670"
+    resDEMO="700x672"
+#
+
+#preset tags
+    presetTT1="#preset=tg_title1"
+    presetTT2="#preset=tg_title2"
+    presetTT3="#preset=tg_title3"
+
+    presetAlt1="#preset=tg_alt1"
+    presetAlt2="#preset=tg_alt2"
+
+    presetL3WIDE="#preset=tg_transparent_png_download_wide"
+    presetL3STD="#preset=tg_transparent_png_download_standard"
+    presetL3TH="#preset=tg_transparent_png_preview"
+    presetL3PV="#preset=preview_only"
+
+    presetSDEMO="#preset=social_psd_demo"
+    presetSOR="#preset=social_orientations"
+    presetSLS1="#preset=social_landscape1"
+    presetSLS2="#preset=social_landscape2"
+    presetSLS3="#preset=social_landscape3"
+    presetSPR1="#preset=social_portrait1"
+    presetSPR2="#preset=social_portrait2"
+    presetSPR3="#preset=social_portrait3"
+    presetSSQ1="#preset=social_square1"
+    presetSSQ2="#preset=social_square2"
+    presetSSQ3="#preset=social_square3"
+#
+
+for i in *.jpg *.png *.mov *.mp4 *.zip; do
+    if [[ "$i" != "*.zip" ]] && [[ "$i" != "*.jpg" ]] && [[ "$i" != "*.png" ]] && [[ "$i" != "*.mov" ]] && [[ "$i" != "*.mp4" ]]; then
+        if [[ "$i" == *"#preset="* ]]; then
+            named="TRUE"
+        else
+            # determine filetype
+            if [[ "$i" == *".jpg"* ]]; then
+                fileType=".jpg"
+            elif [[ "$i" == *".png"* ]]; then
+                fileType=".png"
+            elif [[ "$i" == *".mov"* ]]; then
+                fileType=".mov"
+            elif [[ "$i" == *".mp4"* ]]; then
+                fileType=".mp4"
+            elif [[ "$i" == *".zip"* ]]; then
+                fileType=".zip"
+            fi
+
+            # image titles
+            if [[ "$i" == *"$prefixTT1"* ]]; then
+                mv -p "$i" "${i%"$fileType"}${presetTT1}$fileType"
+            elif [[ "$i" == *"$prefixTT2"* ]]; then
+                mv -p "$i" "${i%"$fileType"}${presetTT2}$fileType"
+            elif [[ "$i" == *"$prefixTT3"* ]]; then
+                mv -p "$i" "${i%"$fileType"}${presetTT3}$fileType"
+
+            # image alts
+            elif [[ "$i" == *"$prefixAlt1"* ]]; then
+                mv -p "$i" "${i%"$fileType"}${presetAlt1}$fileType"
+            elif [[ "$i" == *"$prefixAlt2"* ]]; then
+                mv -p "$i" "${i%"$fileType"}${presetAlt2}$fileType"
+
+            # image lower thirds
+            elif [[ "$i" == *"$prefixL3"* ]] && [[ "$i" != *"$thumbnail"* ]] && [[ "$i" != *"$preview"* ]] && [[ "$i" == *"$suffixWIDE"* ]]; then
+                mv -p "$i" "${i%"$fileType"}${presetL3WIDE}$fileType"
+            elif [[ "$i" == *"$prefixL3"* ]] && [[ "$i" != *"$thumbnail"* ]] && [[ "$i" != *"$preview"* ]] && [[ "$i" == *"$suffixSTD"* ]]; then
+                mv -p "$i" "${i%"$fileType"}${presetL3STD}$fileType"
+            elif [[ "$i" == *"$prefixL3"* ]] && [[ "$i" == *"$thumbnail"* ]] && [[ "$i" != *"$preview"* ]]; then
+                mv -p "$i" "${i%"$fileType"}${presetL3TH}$fileType"
+            elif [[ "$i" == *"$prefixL3"* ]] && [[ "$i" != *"$thumbnail"* ]] && [[ "$i" == *"$preview"* ]]; then
+                mv -p "$i" "${i%"$fileType"}${presetL3PV}$fileType"
+            
+            # image socials
+            elif [[ "$i" == *"$suffixDEMO"* ]]; then
+                mv -p "$i" "${i%"$fileType"}${presetSDEMO}$fileType"
+            elif [[ "$i" == *"$suffixOR"* ]]; then
+                mv -p "$i" "${i%"$fileType"}${presetSOR}$fileType"
+            elif [[ "$i" == *"$suffixLS"* ]] && [[ "$i" != *"$blank"* ]] && [[ "$i" != *"$transparent"* ]]; then
+                mv -p "$i" "${i%"$fileType"}${presetSLS1}$fileType"
+            elif [[ "$i" == *"$suffixPR"* ]] && [[ "$i" != *"$blank"* ]] && [[ "$i" != *"$transparent"* ]]; then
+                mv -p "$i" "${i%"$fileType"}${presetSPR1}$fileType"
+            elif [[ "$i" == *"$suffixSQ"* ]] && [[ "$i" != *"$blank"* ]] && [[ "$i" != *"$transparent"* ]]; then
+                mv -p "$i" "${i%"$fileType"}${presetSSQ1}$fileType"
+            elif [[ "$i" == *"$suffixLS"* ]] && [[ "$i" == *"$blank"* ]] && [[ "$i" != *"$transparent"* ]]; then
+                mv -p "$i" "${i%"$fileType"}${presetSLS2}$fileType"
+            elif [[ "$i" == *"$suffixPR"* ]] && [[ "$i" == *"$blank"* ]] && [[ "$i" != *"$transparent"* ]]; then
+                mv -p "$i" "${i%"$fileType"}${presetSPR2}$fileType"
+            elif [[ "$i" == *"$suffixSQ"* ]] && [[ "$i" == *"$blank"* ]] && [[ "$i" != *"$transparent"* ]]; then
+                mv -p "$i" "${i%"$fileType"}${presetSSQ2}$fileType"
+            elif [[ "$i" == *"$suffixLS"* ]] && [[ "$i" != *"$blank"* ]] && [[ "$i" == *"$transparent"* ]]; then
+                mv -p "$i" "${i%"$fileType"}${presetSLS3}$fileType"
+            elif [[ "$i" == *"$suffixPR"* ]] && [[ "$i" != *"$blank"* ]] && [[ "$i" == *"$transparent"* ]]; then
+                mv -p "$i" "${i%"$fileType"}${presetSPR3}$fileType"
+            elif [[ "$i" == *"$suffixSQ"* ]] && [[ "$i" != *"$blank"* ]] && [[ "$i" == *"$transparent"* ]]; then
+                mv -p "$i" "${i%"$fileType"}${presetSSQ3}$fileType"
+            
+            # motion socials
+            
+            # project files
+            
+            # generic motions
+            
+            fi
+        fi
+    fi
+done
