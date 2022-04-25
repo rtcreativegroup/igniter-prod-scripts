@@ -9,7 +9,6 @@ suffixDEMO="DEMO"
 suffixOR="OR"
 
 thumbnail="_TH_"
-preview="_PV_"
 
 prefixTT1="TT1_"
 prefixTT2="TT2_"
@@ -33,7 +32,7 @@ for i in *.jpg *.png; do
     else
         echo "  Incorrect Suffix for: $i"
     fi
-    if [[ "$i" == *"$prefixTT1"* ]] || [[ "$i" == *"$prefixTT2"* ]] || [[ "$i" == *"$prefixTT3"* ]] || [[ "$i" == *"$prefixAlt1"* ]] || [[ "$i" == *"$prefixAlt2"* ]] || [[ "$i" == *"$prefixL3"* ]] || [[ "$i" == *"$thumbnail"* ]] || [[ "$i" == *"$preview"* ]] || [[ "$i" == *"$suffixLS"* ]] || [[ "$i" == *"$suffixPR"* ]] || [[ "$i" == *"$suffixSQ"* ]] || [[ "$i" == *"$suffixOR"* ]] || [[ "$i" == *"$suffixDEMO"* ]] || [[ "$i" == "*.jpg" ]] || [[ "$i" == "*.png" ]]; then
+    if [[ "$i" == *"$prefixTT1"* ]] || [[ "$i" == *"$prefixTT2"* ]] || [[ "$i" == *"$prefixTT3"* ]] || [[ "$i" == *"$prefixAlt1"* ]] || [[ "$i" == *"$prefixAlt2"* ]] || [[ "$i" == *"$prefixL3"* ]] || [[ "$i" == *"$thumbnail"* ]] || [[ "$i" == *"$suffixLS"* ]] || [[ "$i" == *"$suffixPR"* ]] || [[ "$i" == *"$suffixSQ"* ]] || [[ "$i" == *"$suffixOR"* ]] || [[ "$i" == *"$suffixDEMO"* ]] || [[ "$i" == "*.jpg" ]] || [[ "$i" == "*.png" ]]; then
         check="Success"
     else 
         echo "  Incorrect Prefix for: $i"
