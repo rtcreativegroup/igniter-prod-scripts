@@ -14,17 +14,17 @@ brew update
 
 # alias reference for windows
 alias addAlias="sudo nano .bashrc"
-alias test="/mnt/c/Users/$username/Documents/GitHub/test"
-alias sdcrop="/mnt/c/Users/$username/Documents/GitHub/IG_Scripts/sdcrop"
-alias workingFolders="/mnt/c/Users/$username/Documents/GitHub/IG_Scripts/workingFolders"
-alias uploads="/mnt/c/Users/$username/Documents/GitHub/IG_Scripts/uploads"
-alias checkImages="/mnt/c/Users/$username/Documents/GitHub/IG_Scripts/checkImages"
-alias checkMotions="/mnt/c/Users/$username/Documents/GitHub/IG_Scripts/checkMotions"
-alias generateThumbs="/mnt/c/Users/$username/Documents/GitHub/IG_Scripts/generateThumbs"
-alias compressMOV="/mnt/c/Users/$username/Documents/GitHub/IG_Scripts/compressMOV"
-alias compressFolder="/mnt/c/Users/$username/Documents/GitHub/IG_Scripts/compressFolder"
-alias processFilenames="/mnt/c/Users/$username/Documents/GitHub/IG_Scripts/processFilenames"
-alias processPresets="/mnt/c/Users/$username/Documents/GitHub/IG_Scripts/processPresets"
+alias test="/mnt/c/Users/jere.baker/Documents/GitHub/test"
+alias sdcrop="/mnt/c/Users/jere.baker/Documents/GitHub/IG_Scripts/sdcrop"
+alias workingFolders="/mnt/c/Users/jere.baker/Documents/GitHub/IG_Scripts/workingFolders"
+alias uploads="/mnt/c/Users/jere.baker/Documents/GitHub/IG_Scripts/uploads"
+alias checkImages="/mnt/c/Users/jere.baker/Documents/GitHub/IG_Scripts/checkImages"
+alias checkMotions="/mnt/c/Users/jere.baker/Documents/GitHub/IG_Scripts/checkMotions"
+alias generateThumbs="/mnt/c/Users/jere.baker/Documents/GitHub/IG_Scripts/generateThumbs"
+alias compressMOV="/mnt/c/Users/jere.baker/Documents/GitHub/IG_Scripts/compressMOV"
+alias compressFolder="/mnt/c/Users/jere.baker/Documents/GitHub/IG_Scripts/compressFolder"
+alias processFilenames="/mnt/c/Users/jere.baker/Documents/GitHub/IG_Scripts/processFilenames"
+alias processPresets="/mnt/c/Users/jere.baker/Documents/GitHub/IG_Scripts/processPresets"
 
 # alias reference for mac
 alias sdcrop="/Users/$username/Documents/GitHub/IG_Scripts/sdcrop"

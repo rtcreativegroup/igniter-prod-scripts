@@ -4,11 +4,11 @@ filePrefix="$1"
 
 for i in *.psd *.zip *.jpg *.png *.mov *.mp4; do
     if [[ "$i" != "*.psd" ]] && [[ "$i" != "*.zip" ]] && [[ "$i" != "*.jpg" ]] && [[ "$i" != "*.png" ]] && [[ "$i" != "*.mov" ]] && [[ "$i" != "*.mp4" ]]; then
-        if [[ "$i" == *"$filePrefix"* ]]; then
+        if [[ "$i" == "$filePrefix" ]]; then
             named="TRUE"
         else
             newName="${filePrefix}_$i"
-            mv -p "$i" "$newName"
+            mv "$i" "$newName"
         fi
     fi
 done

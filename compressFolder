@@ -4,6 +4,6 @@ filter1="$1"
 
 for i in *; do
     if [[ "$i" == *"$filter1"* ]] && [[ -d $i ]]; then
-        zip -n -r -X -q "${i}.zip" "$i"
+        zip -r -q "${i}.zip" "$i"
     fi
 done

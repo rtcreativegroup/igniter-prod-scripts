@@ -10,7 +10,9 @@ if [[ -d "./02_Title" ]]; then
         cd ..
         cd "./_Motions"
         ${scriptPath}checkMotions
-        cd ../../
+        cd ..
+        ${scriptPath}checkAE
+        cd ..
     done
     cd ..
 fi
@@ -23,7 +25,9 @@ if [[ -d "./03_Social" ]]; then
         cd ..
         cd "./_Motions"
         ${scriptPath}checkMotions
-        cd ../../
+        cd ..
+        ${scriptPath}checkAE
+        cd ..
     done
     cd ..
 fi

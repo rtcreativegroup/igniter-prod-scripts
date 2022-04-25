@@ -46,15 +46,14 @@ fi
 
 if [[ -d "./03_Social" ]]; then
 cd "./03_Social"
+pwd
     for i in *; do
         cd "./$i/_Images"
         bash ${scriptPath}processFilenames "$filePrefix"
         bash ${scriptPath}processPresets "$filePrefix"
         cd ..
         cd "./_Motions"
-        ########
-        bash ${scriptPath}compressMOV "???"
-        ########
+        bash ${scriptPath}compressMOV "CH_SQ"
         bash ${scriptPath}processFilenames "$filePrefix"
         bash ${scriptPath}processPresets "$filePrefix"
         cd ../../

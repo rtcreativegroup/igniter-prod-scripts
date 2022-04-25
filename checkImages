@@ -5,8 +5,8 @@ suffixSTD="_STD"
 suffixLS="_LS"
 suffixPR="_PR"
 suffixSQ="_SQ"
-suffixDEMO="_DEMO"
-suffixOR="_OR"
+suffixDEMO="DEMO"
+suffixOR="OR"
 
 thumbnail="_TH_"
 preview="_PV_"
@@ -28,7 +28,7 @@ resDEMO="700x672"
 
 for i in *.jpg *.png; do
     fileRes=$(ffprobe -v quiet -select_streams v:0 -show_entries stream=width,height -of csv=s=x:p=0 "$i")
-    if [[ "$i" == *"$suffixWIDE"* ]] || [[ "$i" == *"$suffixSTD"* ]] || [[ "$i" == *"$suffixLS"* ]] || [[ "$i" == *"$suffixPR"* ]] || [[ "$i" == *"$suffixSQ"* ]] || [[ "$i" == *"$suffixLS"* ]] || [[ "$i" == *"$suffixOR"* ]] || [[ "$i" == *"$suffixDEMO"* ]] || [[ "$i" == "*.jpg" ]] || [[ "$i" == "*.png" ]]; then
+    if [[ "$i" == *"$suffixWIDE"* ]] || [[ "$i" == *"$suffixSTD"* ]] || [[ "$i" == *"$suffixLS"* ]] || [[ "$i" == *"$suffixPR"* ]] || [[ "$i" == *"$suffixSQ"* ]] || [[ "$i" == *"$suffixOR"* ]] || [[ "$i" == *"$suffixDEMO"* ]] || [[ "$i" == "*.jpg" ]] || [[ "$i" == "*.png" ]]; then
         check="Success"
     else
         echo "  Incorrect Suffix for: $i"
