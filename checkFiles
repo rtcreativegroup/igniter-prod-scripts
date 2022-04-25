@@ -34,14 +34,26 @@ if [[ -d "./04_Worship Background/_Motions" ]]; then
     cd ../../
 fi
 
-if [[ -d "./05_Countdown & Trivia/_Motions" ]]; then
-    cd "./05_Countdown & Trivia/_Motions"
+if [[ -d "./05_Ultra Wide/_Motions" ]]; then
+    cd "./05_Ultra Wide/_Motions"
     ${scriptPath}checkMotions
     cd ../../
 fi
 
-if [[ -d "./06_Bumper/_Motions" ]]; then
-    cd "./06_Bumper/_Motions"
+if [[ -d "./06_Countdown/_Motions" ]]; then
+    cd "./06_Countdown/_Motions"
+    ${scriptPath}checkMotions
+    cd ../../
+fi
+
+if [[ -d "./07_Trivia/_Motions" ]]; then
+    cd "./07_Trivia/_Motions"
+    ${scriptPath}checkMotions
+    cd ../../
+fi
+
+if [[ -d "./08_Bumper/_Motions" ]]; then
+    cd "./08_Bumper/_Motions"
     ${scriptPath}checkMotions
     cd ../../
 fi
