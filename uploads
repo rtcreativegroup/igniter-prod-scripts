@@ -84,7 +84,7 @@
                 cd "./$i"
                 lookName="$i"
                 echo "Checking File Naming and Resolutions for ${lookName%"/"}"
-                bash ${scriptPath}checkFiles "$scriptPath"
+                #bash ${scriptPath}checkFiles "$scriptPath"
                 cd ..
             fi
         done
@@ -94,7 +94,8 @@
         for i in */; do
             if [[ "$i" != *"00_"* ]]; then
                 cd "./$i"
-                filePrefix="${projName}_$i"
+                filePrefix="${projName}_${i%"/"}"
+                echo "$filePrefix"
                 bash ${scriptPath}process "$scriptPath" "$filePrefix"
                 cd ..
             fi
@@ -103,7 +104,7 @@
         filePrefix="$projName"
         echo
         echo "Checking File Naming and Resolutions for $filePrefix"
-        bash ${scriptPath}checkFiles "$scriptPath"
+        #bash ${scriptPath}checkFiles "$scriptPath"
         echo
         read -p "Press enter to continue or CTRL-C to cancel"
         echo
