@@ -23,8 +23,8 @@ filePrefix="$1"
     prefixTT1="TT1_"
     prefixTT2="TT2_"
     prefixTT3="TT3_"
-    prefixAlt1="ALT1_"
-    prefixAlt2="ALT2_"
+    prefixAlt1="Alt1_"
+    prefixAlt2="Alt2_"
     prefixL3="L3_"
     prefixPP="PP_"
     prefixFS="FS_"
@@ -162,6 +162,7 @@ for i in *.mov *.mp4 *.zip; do
 
             # ae project
             if [[ "$i" == *".zip"* ]]; then
+                mv "$i" "${i%"$fileType"}${presetAE}$fileType"
 
             # motion socials
             elif [[ "$i" == *"$suffixFS"* ]] || [[ "$i" == *"$suffixPV"* ]]; then
