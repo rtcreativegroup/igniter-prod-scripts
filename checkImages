@@ -5,17 +5,27 @@ suffixSTD="_STD"
 suffixLS="_LS"
 suffixPR="_PR"
 suffixSQ="_SQ"
-suffixDEMO="DEMO"
-suffixOR="OR"
-
-thumbnail="_TH_"
+suffixBL="_BL"
+suffixOR="_OR"
+suffixTH="_TH"
+suffixTP="_TP"
+suffixCH="_CH"
+suffixFS="_FS_"
+suffixFR="_FR_"
+suffixPV="_PV_"
+suffix=($suffixWIDE $suffixSTD $suffixLS $suffixPR $suffixSQ $suffixBL $suffixOR $suffixTH $suffixTP $suffixCH $suffixFS $suffixFR $suffixPV)
 
 prefixTT1="TT1_"
 prefixTT2="TT2_"
 prefixTT3="TT3_"
-prefixAlt1="ALT1_"
-prefixAlt2="ALT2_"
+prefixAlt1="Alt1_"
+prefixAlt2="Alt2_"
 prefixL3="L3_"
+prefixPP="PP_"
+prefixFS="FS_"
+prefixFR="FR_"
+prefixPV="PV_"
+prefix=($prefixTT1 $prefixTT2 $prefixTT3 $prefixAlt1 $prefixAlt2 $prefixL3 $prefixPP $prefixFS $prefixFR $prefixPV)
 
 resWIDE="1920x1080"
 resSTD="1440x1080"
@@ -23,24 +33,36 @@ resLS="1280x720"
 resPR="1080x1920"
 resSQ="1080x1080"
 resOR="672x670"
-resDEMO="700x672"
+
 
 for i in *.jpg *.png; do
-    fileRes=$(ffprobe -v quiet -select_streams v:0 -show_entries stream=width,height -of csv=s=x:p=0 "$i")
-    if [[ "$i" == *"$suffixWIDE"* ]] || [[ "$i" == *"$suffixSTD"* ]] || [[ "$i" == *"$suffixLS"* ]] || [[ "$i" == *"$suffixPR"* ]] || [[ "$i" == *"$suffixSQ"* ]] || [[ "$i" == *"$suffixOR"* ]] || [[ "$i" == *"$suffixDEMO"* ]] || [[ "$i" == "*.jpg" ]] || [[ "$i" == "*.png" ]]; then
-        check="Success"
+    if [[ "$i" == "*.jpg" ]] || [[ "$i" == "*.png" ]]; then
+        noImages="TRUE"
     else
-        echo "  Incorrect Suffix for: $i"
-    fi
-    if [[ "$i" == *"$prefixTT1"* ]] || [[ "$i" == *"$prefixTT2"* ]] || [[ "$i" == *"$prefixTT3"* ]] || [[ "$i" == *"$prefixAlt1"* ]] || [[ "$i" == *"$prefixAlt2"* ]] || [[ "$i" == *"$prefixL3"* ]] || [[ "$i" == *"$thumbnail"* ]] || [[ "$i" == *"$suffixLS"* ]] || [[ "$i" == *"$suffixPR"* ]] || [[ "$i" == *"$suffixSQ"* ]] || [[ "$i" == *"$suffixOR"* ]] || [[ "$i" == *"$suffixDEMO"* ]] || [[ "$i" == "*.jpg" ]] || [[ "$i" == "*.png" ]]; then
-        check="Success"
-    else 
-        echo "  Incorrect Prefix for: $i"
-    fi
-    if ([[ "$fileRes" == "$resWIDE" ]] && [[ "$i" == *"$suffixWIDE"* ]]) || ([[ "$fileRes" == "$resSTD" ]] && [[ "$i" == *"$suffixSTD"* ]]) || ([[ "$fileRes" == "$resLS" ]] && [[ "$i" == *"$suffixLS"* ]]) || ([[ "$fileRes" == "$resPR" ]] && [[ "$i" == *"$suffixPR"* ]]) || ([[ "$fileRes" == "$resSQ" ]] && [[ "$i" == *"$suffixSQ"* ]]) || ([[ "$fileRes" == "$resLS" ]] && [[ "$i" == *"$thumbnail"* ]]) || ([[ "$fileRes" == "$resOR" ]] && [[ "$i" == *"$suffixOR"* ]]) || ([[ "$fileRes" == "$resDEMO" ]] && [[ "$i" == *"$suffixDEMO"* ]]) || [[ "$i" == "*.jpg" ]] || [[ "$i" == "*.png" ]]; then
-        check="Success"
-    else
-        echo "  Incorrect Resolution for: $i"
-        echo "    Resolution Found: $fileRes"
+        fileRes=$(ffprobe -v quiet -select_streams v:0 -show_entries stream=width,height -of csv=s=x:p=0 "$i")
+        checkSuffix="Fail"
+        checkPrefix="Fail"
+        for t in ${suffix[@]}; do 
+            if [[ "$i" == *"$t"* ]]; then
+                checkSuffix="Success"
+            fi
+        done
+        for t in ${prefix[@]}; do 
+            if [[ "$i" == *"$t"* ]]; then
+                checkPrefix="Success"
+            fi
+        done
+        if [[ $checkSuffix == "Fail" ]]; then 
+            echo "  Incorrect Suffix for $i" 
+        fi
+        if [[ $checkPrefix == "Fail" ]]; then 
+            echo "  Incorrect Prefix for $i" 
+        fi
+        if ([[ "$i" == *"$suffixWIDE"* ]] && [[ $fileRes == $resWIDE ]]) || ([[ "$i" == *"$suffixSTD"* ]] && [[ $fileRes == $resSTD ]]) || ([[ "$i" == *"$suffixLS"* ]] && [[ $fileRes == $resLS ]]) || ([[ "$i" == *"$suffixPR"* ]] && [[ $fileRes == $resPR ]]) || ([[ "$i" == *"$suffixSQ"* ]] && [[ $fileRes == $resSQ ]]) || ([[ "$i" == *"$suffixOR"* ]] && [[ $fileRes == $resOR ]]) || ([[ "$i" == *"$suffixTH"* ]] && [[ "$i" == *"$prefixL3"* ]] && [[ $fileRes == $resLS ]]); then
+            check="Success"
+        else
+            echo "  Incorrect Resolution for: $i"
+            echo "    Resolution Found: $fileRes"
+        fi
     fi
 done

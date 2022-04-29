@@ -1,9 +1,15 @@
 #!/bin/bash
 
 filter1="$1"
+zipped="FALSE"
 
 for i in *; do
-    if [[ "$i" == *"$filter1"* ]] && [[ -d $i ]]; then
+    if [[ "$i" == *".zip"* ]]; then 
+        zipped="TRUE"
+    fi
+done
+for i in *; do
+    if [[ "$i" == *"$filter1"* ]] && [[ -d $i ]] && [[ "$zipped" == "FALSE" ]]; then
         zip -r -q "${i}.zip" "$i"
     fi
 done

@@ -5,8 +5,18 @@ suffixSD="_SD"
 suffixLS="_LS"
 suffixPR="_PR"
 suffixSQ="_SQ"
+suffixAE="_AE"
+suffix=($suffixHD $suffixSD $suffixLS $suffixPR $suffixSQ $suffixAE)
 
+prefixFS="FS_"
+prefixFR="FR_"
+prefixPV="PV_"
+prefixWB="WB_"
 prefixUW="UW_"
+prefixCD="Countdown_"
+prefixTV="Trivia_"
+prefixBP="Bumper_"
+prefix=($suffixHD $suffixSD $prefixFS $prefixFR $prefixPV $prefixWB $prefixUW $prefixCD $prefixTV $prefixBP)
 
 resHD="1920x1080"
 resSD="1440x1080"
@@ -16,17 +26,34 @@ resLS="1280x720"
 resPR="1080x1920"
 resSQ="1080x1080"
 
-for i in *.mov; do 
-    fileRes=$(ffprobe -v quiet -select_streams v:0 -show_entries stream=width,height -of csv=s=x:p=0 "$i")
-    if [[ "$i" == *"$suffixHD"* ]] || [[ "$i" == *"$suffixSD"* ]] || [[ "$i" == *"$suffixLS"* ]] || [[ "$i" == *"$suffixPR"* ]] || [[ "$i" == *"$suffixSQ"* ]] || [[ "$i" == "*.mov" ]]; then
-        check="Success"
+for i in *.mov *.mp4; do 
+    if [[ "$i" == "*.mov" ]] || [[ "$i" == "*.mp4" ]]; then
+        noImages="TRUE"
     else
-        echo "  Incorrect Suffix for: $i"
-    fi
-    if ([[ "$fileRes" == "$resHD" ]] && [[ "$i" == *"$suffixHD"* ]]) || ([[ "$fileRes" == "$resSD" ]] && [[ "$i" == *"$suffixSD"* ]]) || ([[ "$fileRes" == "$resUWHD" ]] && [[ "$i" == *"$suffixHD"* ]] && [[ "$i" == *"$prefixUW"* ]]) || ([[ "$fileRes" == "$resUWSD" ]] && [[ "$i" == *"$suffixSD"* ]] && [[ "$i" == *"$prefixUW"* ]]) || ([[ "$fileRes" == "$resLS" ]] && [[ "$i" == *"$suffixLS"* ]]) || ([[ "$fileRes" == "$resPR" ]] && [[ "$i" == *"$suffixPR"* ]]) || ([[ "$fileRes" == "$resSQ" ]] && [[ "$i" == *"$suffixSQ"* ]]) || [[ "$i" == "*.mov" ]]; then
-        check="Success"
-    else
-        echo "  Incorrect Resolution for: $i"
-        echo "    Resolution Found: $fileRes"
+        fileRes=$(ffprobe -v quiet -select_streams v:0 -show_entries stream=width,height -of csv=s=x:p=0 "$i")
+        checkSuffix="Fail"
+        checkPrefix="Fail"
+        for t in ${suffix[@]}; do 
+            if [[ "$i" == *"$t"* ]]; then
+                checkSuffix="Success"
+            fi
+        done
+        for t in ${prefix[@]}; do 
+            if [[ "$i" == *"$t"* ]]; then
+                checkPrefix="Success"
+            fi
+        done
+        if [[ $checkSuffix == "Fail" ]]; then 
+            echo "  Incorrect Suffix for $i" 
+        fi
+        if [[ $checkPrefix == "Fail" ]]; then 
+            echo "  Incorrect Prefix for $i" 
+        fi
+        if ([[ "$i" == *"$suffixHD"* ]] && [[ $fileRes == $resHD ]]) || ([[ "$i" == *"$suffixSD"* ]] && [[ $fileRes == $resSD ]]) || ([[ "$i" == *"$suffixHD"* ]] && [[ "$i" == *"$prefixUW"* ]] && [[ $fileRes == $resUWHD ]]) || ([[ "$i" == *"$suffixSD"* ]] && [[ "$i" == *"$prefixUW"* ]] && [[ $fileRes == $resUWSD ]]) || ([[ "$i" == *"$suffixLS"* ]] && [[ $fileRes == $resLS ]]) || ([[ "$i" == *"$suffixPR"* ]] && [[ $fileRes == $resPR ]]) || ([[ "$i" == *"$suffixSQ"* ]] && [[ $fileRes == $resSQ ]]); then
+            check="Success"
+        else
+            echo "  Incorrect Resolution for: $i"
+            echo "    Resolution Found: $fileRes"
+        fi
     fi
 done
