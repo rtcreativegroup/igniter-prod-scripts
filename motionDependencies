@@ -25,6 +25,7 @@ alias compressMOV="/mnt/c/Users/jere.baker/Documents/GitHub/IG_Scripts/compressM
 alias compressFolder="/mnt/c/Users/jere.baker/Documents/GitHub/IG_Scripts/compressFolder"
 alias processFilenames="/mnt/c/Users/jere.baker/Documents/GitHub/IG_Scripts/processFilenames"
 alias processPresets="/mnt/c/Users/jere.baker/Documents/GitHub/IG_Scripts/processPresets"
+alias batchRename="/mnt/c/Users/jere.baker/Documents/GitHub/IG_Scripts/batchRename"
 
 # alias reference for mac
 alias sdcrop="/Users/$username/Documents/GitHub/IG_Scripts/sdcrop"

@@ -1,0 +1,8 @@
+#!/bin/bash
+
+searchString=$1
+newString=$2
+
+for i in *; do
+    mv -n "$i" "${i/${searchString}/${newString}}"
+done
