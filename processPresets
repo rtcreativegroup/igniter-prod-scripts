@@ -1,7 +1,5 @@
 #!/bin/bash
 
-filePrefix="$1"
-
 # sorting identifiers
     suffixWIDE="_WIDE"
     suffixSTD="_STD"
@@ -74,8 +72,8 @@ filePrefix="$1"
     presetAE="#preset=aep_zip"
 #
 
-for i in *.jpg *.png; do
-    if [[ "$i" != "*.jpg" ]] && [[ "$i" != "*.png" ]]; then
+for i in *.jpg *.png *.pptx; do
+    if [[ "$i" != "*.jpg" ]] && [[ "$i" != "*.png" ]] && [[ "$i" != "*.pptx" ]]; then
         if [[ "$i" == *"#preset="* ]]; then
             named="TRUE"
         else
@@ -84,6 +82,8 @@ for i in *.jpg *.png; do
                 fileType=".jpg"
             elif [[ "$i" == *".png"* ]]; then
                 fileType=".png"
+            elif [[ "$i" == *".pptx"* ]]; then
+                fileType=".pptx"
             fi
 
             # image titles

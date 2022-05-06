@@ -36,7 +36,7 @@ if [[ -d "./02_Title" ]]; then
         bash ${scriptPath}processFilenames "$filePrefix"
         bash ${scriptPath}processPresets "$filePrefix"
         cd ..
-        bash ${scriptPath}compressFolders "_AE"
+        bash ${scriptPath}compressFolder "_AE"
         bash ${scriptPath}processFilenames "$filePrefix"
         bash ${scriptPath}processPresets "$filePrefix"
         cd ..
