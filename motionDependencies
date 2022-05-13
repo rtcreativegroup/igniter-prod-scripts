@@ -14,6 +14,7 @@ brew update
 
 # alias reference for windows
 alias addAlias="sudo nano .bashrc"
+alias oneDir="find . -mindepth 2 -type f -print -exec mv {} . \;"
 alias test="/mnt/c/Users/jere.baker/Documents/GitHub/test"
 alias sdcrop="/mnt/c/Users/jere.baker/Documents/GitHub/IG_Scripts/sdcrop"
 alias workingFolders="/mnt/c/Users/jere.baker/Documents/GitHub/IG_Scripts/workingFolders"

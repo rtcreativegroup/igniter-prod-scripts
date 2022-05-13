@@ -8,6 +8,9 @@ echo "Processing Files for $filePrefix"
 if [[ -d "./02_Title" ]]; then
     read -p "  Input frame for Title:              " ttFrame
 fi
+if [[ -d "./03_Social" ]]; then
+    read -p "  Input frame for Social:             " scFrame
+fi
 if [[ -d "./04_Worship Background/_Motions" ]]; then
     read -p "  Input frame for Worship Background: " wbFrame
 fi
@@ -27,7 +30,9 @@ fi
 if [[ -d "./02_Title" ]]; then
     cd "./02_Title"
     for i in *; do
-        cd "./$i/_Images"
+        cd "./$i"
+        bash ${scriptPath}compressFolder "_AE"
+        cd "./_Images"
         bash ${scriptPath}processFilenames "$filePrefix"
         bash ${scriptPath}processPresets "$filePrefix"
         cd ..
@@ -35,25 +40,22 @@ if [[ -d "./02_Title" ]]; then
         bash ${scriptPath}generateThumbs $ttFrame "_HD"
         bash ${scriptPath}processFilenames "$filePrefix"
         bash ${scriptPath}processPresets "$filePrefix"
-        cd ..
-        bash ${scriptPath}compressFolder "_AE"
-        bash ${scriptPath}processFilenames "$filePrefix"
-        bash ${scriptPath}processPresets "$filePrefix"
-        cd ..
+        cd ../../
     done
     cd ..
 fi
 
 if [[ -d "./03_Social" ]]; then
-cd "./03_Social"
-pwd
+    cd "./03_Social"
     for i in *; do
-        cd "./$i/_Images"
+        cd "./$i"
+        bash ${scriptPath}compressFolder "_AE"
+        cd "./_Images"
         bash ${scriptPath}processFilenames "$filePrefix"
         bash ${scriptPath}processPresets "$filePrefix"
         cd ..
         cd "./_Motions"
-        bash ${scriptPath}compressMOV "CH_SQ"
+        bash ${scriptPath}generateThumbs $scFrame "_SQ"
         bash ${scriptPath}processFilenames "$filePrefix"
         bash ${scriptPath}processPresets "$filePrefix"
         cd ../../

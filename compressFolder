@@ -11,5 +11,7 @@ done
 for i in *; do
     if [[ "$i" == *"$filter1"* ]] && [[ -d $i ]] && [[ "$zipped" == "FALSE" ]]; then
         zip -r -q "${i}.zip" "$i"
+        mkdir -p "_Motions"
+        mv "${i}.zip" "./_Motions"
     fi
 done
