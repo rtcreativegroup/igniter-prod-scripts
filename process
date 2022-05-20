@@ -4,84 +4,117 @@ scriptPath="$1"
 filePrefix="$2"
 
 echo "Processing Files for $filePrefix"
+read -p "  Do you want to re-generate thumbnails for motions? (y/n)" thumbs
+
+if [[ $thumbs == "y" ]]; then
+    if [[ -d "./02_Title" ]]; then
+        read -p "    Input frame for Title:              " ttFrame
+    fi
+    if [[ -d "./03_Social" ]]; then
+        read -p "    Input frame for Social:             " scFrame
+    fi
+    if [[ -d "./04_Worship Background/_Motions" ]]; then
+        read -p "    Input frame for Worship Background: " wbFrame
+    fi
+    if [[ -d "./05_Ultra Wide/_Motions" ]]; then
+        read -p "    Input frame for Ultra Wide:         " uwFrame
+    fi
+    if [[ -d "./06_Countdown/_Motions" ]]; then
+        read -p "    Input frame for Countdown:          " cdFrame
+    fi
+    if [[ -d "./07_Trivia/_Motions" ]]; then
+        read -p "    Input frame for Trivia:             " tvFrame
+    fi
+    if [[ -d "./08_Bumper/_Motions" ]]; then
+        read -p "    Input frame for Bumper:             " bpFrame
+    fi
+fi
 
 if [[ -d "./02_Title" ]]; then
-    read -p "  Input frame for Title:              " ttFrame
-fi
-if [[ -d "./03_Social" ]]; then
-    read -p "  Input frame for Social:             " scFrame
-fi
-if [[ -d "./04_Worship Background/_Motions" ]]; then
-    read -p "  Input frame for Worship Background: " wbFrame
-fi
-if [[ -d "./05_Ultra Wide/_Motions" ]]; then
-    read -p "  Input frame for Ultra Wide:         " uwFrame
-fi
-if [[ -d "./06_Countdown/_Motions" ]]; then
-    read -p "  Input frame for Countdown:          " cdFrame
-fi
-if [[ -d "./07_Trivia/_Motions" ]]; then
-    read -p "  Input frame for Trivia:             " tvFrame
-fi
-if [[ -d "./08_Bumper/_Motions" ]]; then
-    read -p "  Input frame for Bumper:             " bpFrame
-fi
-
-if [[ -d "./02_Title" ]]; then
+    echo "  Processing Titles"
     cd "./02_Title"
     for i in *; do
         cd "./$i"
         bash ${scriptPath}compressFolder "_AE"
-        cd "./_Images"
-        bash ${scriptPath}processFilenames "$filePrefix"
-        bash ${scriptPath}processPresets "$filePrefix"
+        if [[ -d "./_Images" ]]; then
+            echo "    Processing Stills"
+            cd "./_Images"
+            bash ${scriptPath}processFilenames "$filePrefix"
+            bash ${scriptPath}processPresets "$filePrefix"
+            cd ..
+        fi
+        if [[ -d "./_Motions" ]]; then
+            echo "    Processing Motions"
+            cd "./_Motions"
+            if [[ "$thumbs" == "y" ]]; then 
+                bash ${scriptPath}generateThumbs $ttFrame "_HD" 
+            fi
+            bash ${scriptPath}processFilenames "$filePrefix"
+            bash ${scriptPath}processPresets "$filePrefix"
+            cd ..
+        fi
         cd ..
-        cd "./_Motions"
-        bash ${scriptPath}generateThumbs $ttFrame "_HD"
-        bash ${scriptPath}processFilenames "$filePrefix"
-        bash ${scriptPath}processPresets "$filePrefix"
-        cd ../../
     done
     cd ..
 fi
 
 if [[ -d "./03_Social" ]]; then
+    echo "  Processing Socials"
     cd "./03_Social"
     for i in *; do
         cd "./$i"
         bash ${scriptPath}compressFolder "_AE"
-        cd "./_Images"
-        bash ${scriptPath}processFilenames "$filePrefix"
-        bash ${scriptPath}processPresets "$filePrefix"
+        if [[ -d "./_Images" ]]; then
+            echo "    Processing Stills"
+            cd "./_Images"
+            bash ${scriptPath}processFilenames "$filePrefix"
+            bash ${scriptPath}processPresets "$filePrefix"
+            cd ..
+        fi
+        if [[ -d "./_Motions" ]]; then
+            echo "    Processing Motions"
+            cd "./_Motions"
+            if [[ "$thumbs" == "y" ]]; then 
+                bash ${scriptPath}generateThumbs $scFrame "_SQ" 
+            fi
+            bash ${scriptPath}compressMOV "_CH_"
+            bash ${scriptPath}processFilenames "$filePrefix"
+            bash ${scriptPath}processPresets "$filePrefix"
+            cd ..
+        fi
         cd ..
-        cd "./_Motions"
-        bash ${scriptPath}generateThumbs $scFrame "_SQ"
-        bash ${scriptPath}processFilenames "$filePrefix"
-        bash ${scriptPath}processPresets "$filePrefix"
-        cd ../../
     done
     cd ..
 fi
 
 if [[ -d "./04_Worship Background/_Motions" ]]; then
+    echo "  Processing Worship Backgrounds"
     cd "./04_Worship Background/_Motions"
-    bash ${scriptPath}generateThumbs $wbFrame
+    if [[ "$thumbs" == "y" ]]; then 
+        bash ${scriptPath}generateThumbs $wbFrame 
+    fi
     bash ${scriptPath}processFilenames "$filePrefix"
     bash ${scriptPath}processPresets "$filePrefix"
     cd ../../
 fi
 
 if [[ -d "./05_Ultra Wide/_Motions" ]]; then
+    echo "  Processing Ultra Wides"
     cd "./05_Ultra Wide/_Motions"
-    bash ${scriptPath}generateThumbs $uwFrame "_SD"
+    if [[ "$thumbs" == "y" ]]; then 
+        bash ${scriptPath}generateThumbs $uwFrame "_SD" 
+    fi
     bash ${scriptPath}processFilenames "$filePrefix"
     bash ${scriptPath}processPresets "$filePrefix"
     cd ../../
 fi
 
 if [[ -d "./06_Countdown/_Motions" ]]; then
+    echo "  Processing Countdowns"
     cd "./06_Countdown/_Motions"
-    bash ${scriptPath}generateThumbs $cdFrame "_HD"
+    if [[ "$thumbs" == "y" ]]; then 
+        bash ${scriptPath}generateThumbs $cdFrame "_HD" 
+    fi
     bash ${scriptPath}compressMOV
     bash ${scriptPath}processFilenames "$filePrefix"
     bash ${scriptPath}processPresets "$filePrefix"
@@ -89,8 +122,11 @@ if [[ -d "./06_Countdown/_Motions" ]]; then
 fi
 
 if [[ -d "./07_Trivia/_Motions" ]]; then
+    echo "  Processing Trivia"
     cd "./07_Trivia/_Motions"
-    bash ${scriptPath}generateThumbs $tvFrame "_HD"
+    if [[ "$thumbs" == "y" ]]; then 
+        bash ${scriptPath}generateThumbs $tvFrame "_HD" 
+    fi
     bash ${scriptPath}compressMOV
     bash ${scriptPath}processFilenames "$filePrefix"
     bash ${scriptPath}processPresets "$filePrefix"
@@ -98,11 +134,16 @@ if [[ -d "./07_Trivia/_Motions" ]]; then
 fi
 
 if [[ -d "./08_Bumper/_Motions" ]]; then
+    echo "  Processing Bumper"
     cd "./08_Bumper/_Motions"
-    bash ${scriptPath}generateThumbs $bpFrame "_HD"
+    if [[ "$thumbs" == "y" ]]; then 
+        bash ${scriptPath}generateThumbs $bpFrame "_HD" 
+    fi
     bash ${scriptPath}processFilenames "$filePrefix"
     bash ${scriptPath}processPresets "$filePrefix"
     cd ../../
 fi
 
+echo
 echo "Finished Processing Files for $filePrefix"
+echo

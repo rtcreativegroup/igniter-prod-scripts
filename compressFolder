@@ -3,15 +3,20 @@
 filter1="$1"
 zipped="FALSE"
 
-for i in *; do
-    if [[ "$i" == *".zip"* ]]; then 
-        zipped="TRUE"
-    fi
-done
+if [[ -d "./_Motions" ]]; then 
+    cd "./_Motions"
+    for i in *; do
+        if [[ "$i" == *".zip"* ]]; then 
+            zipped="TRUE"
+        fi
+    done
+    cd ..
+fi
 for i in *; do
     if [[ "$i" == *"$filter1"* ]] && [[ -d $i ]] && [[ "$zipped" == "FALSE" ]]; then
+        echo "    Compressing Folder: $i"
         zip -r -q "${i}.zip" "$i"
         mkdir -p "_Motions"
-        mv "${i}.zip" "./_Motions"
+        mv -f "${i}.zip" "./_Motions"
     fi
 done

@@ -5,12 +5,16 @@ scriptPath="$1"
 if [[ -d "./02_Title" ]]; then
     cd "./02_Title"
     for i in *; do
-        cd "./$i/_Images"
-        ${scriptPath}checkImages
-        cd ..
-        cd "./_Motions"
-        ${scriptPath}checkMotions
-        cd ..
+        if [[ -d "./_Images" ]]; then
+            cd "./$i/_Images"
+            ${scriptPath}checkImages
+            cd ..
+        fi
+        if [[ -d "./_Motions" ]]; then
+            cd "./_Motions"
+            ${scriptPath}checkMotions
+            cd ..
+        fi
         ${scriptPath}checkAE
         cd ..
     done
@@ -20,12 +24,16 @@ fi
 if [[ -d "./03_Social" ]]; then
     cd "./03_Social"
     for i in *; do
-        cd "./$i/_Images"
-        ${scriptPath}checkImages
-        cd ..
+        if [[ -d "./_Images" ]]; then
+            cd "./$i/_Images"
+            ${scriptPath}checkImages
+            cd ..
+        fi
+        if [[ -d "./_Images" ]]; then
         cd "./_Motions"
-        ${scriptPath}checkMotions
-        cd ..
+            ${scriptPath}checkMotions
+            cd ..
+        fi
         ${scriptPath}checkAE
         cd ..
     done

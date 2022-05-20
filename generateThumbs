@@ -8,16 +8,9 @@ for i in *.mov; do
     if [[ "$i" == *"$filter1"* ]] && [[ "$i" == *"$filter2"* ]] && [[ "$i" != "*.mov" ]]; then
         pngthumb=${i/mov}png
         jpgthumb=${i/mov}jpg
-        exists="FALSE"
-        for t in *.jpg; do 
-            if [[ "$t" == "$jpgthumb" ]]; then
-                exists="TRUE"
-            fi
-        done
-        if [[ "$exists" == "FALSE" ]]; then
-            ffmpeg -loglevel quiet -y -i "$i" -q:v 1 -vf "select=eq(n\,$frameNum)" -vframes 1 "$pngthumb"
-            magick "$pngthumb" "$jpgthumb"
-            rm "$pngthumb"
-        fi
+        echo "      Generating Thumb for $i"
+        ffmpeg -loglevel quiet -y -i "$i" -q:v 1 -vf "select=eq(n\,$frameNum)" -vframes 1 "$pngthumb"
+        magick "$pngthumb" "$jpgthumb"
+        rm "$pngthumb"
     fi
 done
