@@ -24,7 +24,7 @@
     prefixAlt1="Alt1_"
     prefixAlt2="Alt2_"
     prefixL3="L3_"
-    prefixPP="PP_"
+    prefixPP=".pptx"
     prefixFS="FS_"
     prefixFR="FR_"
     prefixPV="PV_"

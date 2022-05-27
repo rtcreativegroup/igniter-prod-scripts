@@ -40,7 +40,7 @@ if [[ -d "./02_Title" ]]; then
             echo "    Processing Stills"
             cd "./_Images"
             bash ${scriptPath}processFilenames "$filePrefix"
-            bash ${scriptPath}processPresets "$filePrefix"
+            bash ${scriptPath}processPresets
             cd ..
         fi
         if [[ -d "./_Motions" ]]; then
@@ -50,7 +50,7 @@ if [[ -d "./02_Title" ]]; then
                 bash ${scriptPath}generateThumbs $ttFrame "_HD" 
             fi
             bash ${scriptPath}processFilenames "$filePrefix"
-            bash ${scriptPath}processPresets "$filePrefix"
+            bash ${scriptPath}processPresets
             cd ..
         fi
         cd ..
@@ -68,7 +68,7 @@ if [[ -d "./03_Social" ]]; then
             echo "    Processing Stills"
             cd "./_Images"
             bash ${scriptPath}processFilenames "$filePrefix"
-            bash ${scriptPath}processPresets "$filePrefix"
+            bash ${scriptPath}processPresets
             cd ..
         fi
         if [[ -d "./_Motions" ]]; then
@@ -79,7 +79,7 @@ if [[ -d "./03_Social" ]]; then
             fi
             bash ${scriptPath}compressMOV "_CH_"
             bash ${scriptPath}processFilenames "$filePrefix"
-            bash ${scriptPath}processPresets "$filePrefix"
+            bash ${scriptPath}processPresets
             cd ..
         fi
         cd ..
@@ -94,7 +94,7 @@ if [[ -d "./04_Worship Background/_Motions" ]]; then
         bash ${scriptPath}generateThumbs $wbFrame 
     fi
     bash ${scriptPath}processFilenames "$filePrefix"
-    bash ${scriptPath}processPresets "$filePrefix"
+    bash ${scriptPath}processPresets
     cd ../../
 fi
 
@@ -102,10 +102,10 @@ if [[ -d "./05_Ultra Wide/_Motions" ]]; then
     echo "  Processing Ultra Wides"
     cd "./05_Ultra Wide/_Motions"
     if [[ "$thumbs" == "y" ]]; then 
-        bash ${scriptPath}generateThumbs $uwFrame "_SD" 
+        bash ${scriptPath}generateThumbs $uwFrame
     fi
     bash ${scriptPath}processFilenames "$filePrefix"
-    bash ${scriptPath}processPresets "$filePrefix"
+    bash ${scriptPath}processPresets
     cd ../../
 fi
 
@@ -117,7 +117,7 @@ if [[ -d "./06_Countdown/_Motions" ]]; then
     fi
     bash ${scriptPath}compressMOV
     bash ${scriptPath}processFilenames "$filePrefix"
-    bash ${scriptPath}processPresets "$filePrefix"
+    bash ${scriptPath}processPresets
     cd ../../
 fi
 
@@ -129,7 +129,7 @@ if [[ -d "./07_Trivia/_Motions" ]]; then
     fi
     bash ${scriptPath}compressMOV
     bash ${scriptPath}processFilenames "$filePrefix"
-    bash ${scriptPath}processPresets "$filePrefix"
+    bash ${scriptPath}processPresets
     cd ../../
 fi
 
@@ -140,7 +140,7 @@ if [[ -d "./08_Bumper/_Motions" ]]; then
         bash ${scriptPath}generateThumbs $bpFrame "_HD" 
     fi
     bash ${scriptPath}processFilenames "$filePrefix"
-    bash ${scriptPath}processPresets "$filePrefix"
+    bash ${scriptPath}processPresets
     cd ../../
 fi
 
