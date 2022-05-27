@@ -7,15 +7,15 @@ if [[ -d "./02_Title" ]]; then
     for i in *; do
         if [[ -d "./_Images" ]]; then
             cd "./$i/_Images"
-            ${scriptPath}checkImages
+            bash ${scriptPath}checkImages
             cd ..
         fi
         if [[ -d "./_Motions" ]]; then
             cd "./_Motions"
-            ${scriptPath}checkMotions
+            bash ${scriptPath}checkMotions
             cd ..
         fi
-        ${scriptPath}checkAE
+        bash ${scriptPath}checkAE
         cd ..
     done
     cd ..
@@ -26,15 +26,15 @@ if [[ -d "./03_Social" ]]; then
     for i in *; do
         if [[ -d "./_Images" ]]; then
             cd "./$i/_Images"
-            ${scriptPath}checkImages
+            bash ${scriptPath}checkImages
             cd ..
         fi
         if [[ -d "./_Images" ]]; then
         cd "./_Motions"
-            ${scriptPath}checkMotions
+            bash ${scriptPath}checkMotions
             cd ..
         fi
-        ${scriptPath}checkAE
+        bash ${scriptPath}checkAE
         cd ..
     done
     cd ..
@@ -42,30 +42,30 @@ fi
 
 if [[ -d "./04_Worship Background/_Motions" ]]; then
     cd "./04_Worship Background/_Motions"
-    ${scriptPath}checkMotions
+    bash ${scriptPath}checkMotions
     cd ../../
 fi
 
 if [[ -d "./05_Ultra Wide/_Motions" ]]; then
     cd "./05_Ultra Wide/_Motions"
-    ${scriptPath}checkMotions
+    bash ${scriptPath}checkMotions
     cd ../../
 fi
 
 if [[ -d "./06_Countdown/_Motions" ]]; then
     cd "./06_Countdown/_Motions"
-    ${scriptPath}checkMotions
+    bash ${scriptPath}checkMotions
     cd ../../
 fi
 
 if [[ -d "./07_Trivia/_Motions" ]]; then
     cd "./07_Trivia/_Motions"
-    ${scriptPath}checkMotions
+    bash ${scriptPath}checkMotions
     cd ../../
 fi
 
 if [[ -d "./08_Bumper/_Motions" ]]; then
     cd "./08_Bumper/_Motions"
-    ${scriptPath}checkMotions
+    bash ${scriptPath}checkMotions
     cd ../../
 fi
