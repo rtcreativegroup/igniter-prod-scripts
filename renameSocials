@@ -1,0 +1,55 @@
+#!/bin/bash
+
+rename () {
+    name="$1"
+    blank="$2"
+
+    if [[ $blank == "n" ]]; then
+        txt=""
+    elif [[ $blank == "y" ]]; then
+        txt="_BL"
+    else
+        txt=""
+    fi
+
+    for t in *.jpg *.png; do
+        if [[ "$t" != "*.jpg" ]] && [[ "$t" != "*.png" ]]; then
+            if [[ "$t" == *".jpg"* ]]; then
+                format=".jpg"
+            elif [[ "$t" == *".png"* ]]; then
+                format=".png"
+            fi
+
+            if [[ "$t" != *"$name"* ]]; then
+                if [[ "$t" == *"Landscape"* ]] || [[ "$t" == *"landscape"* ]]; then
+                    typ="_LS"
+                elif [[ "$t" == *"Portrait"* ]] || [[ "$t" == *"portrait"* ]]; then
+                    typ="_PR"
+                elif [[ "$t" == *"Square"* ]] || [[ "$t" == *"square"* ]]; then
+                    typ="_SQ"
+                fi
+                mv "$t" "${name}${typ}${txt}$format"
+                mv "${name}${typ}${txt}$format" ..
+            else
+                mv "$t" ..
+            fi
+        fi
+    done
+}
+
+for i in *; do
+    echo "    Renaming $i Socials"
+    cd "./$i/_Images"
+    if [[ -d "./With Text" ]]; then
+        cd "./With Text"
+        rename "$i" "n"
+        cd ..
+    fi
+    if [[ -d "./Without Text" ]]; then
+        cd "./Without Text"
+        rename "$i" "y"
+        cd ..
+    fi
+    find . -type d -empty -delete
+    cd ../../
+done

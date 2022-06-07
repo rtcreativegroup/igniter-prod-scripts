@@ -61,11 +61,12 @@ fi
 if [[ -d "./03_Social" ]]; then
     echo "  Processing Socials"
     cd "./03_Social"
+    bash ${scriptPath}renameSocials
     for i in *; do
         cd "./$i"
         bash ${scriptPath}compressFolder "_AE"
         if [[ -d "./_Images" ]]; then
-            echo "    Processing Stills"
+            echo "    Processing Stills for $i"
             cd "./_Images"
             bash ${scriptPath}processFilenames "$filePrefix"
             bash ${scriptPath}processPresets
