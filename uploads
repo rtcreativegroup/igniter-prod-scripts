@@ -7,8 +7,6 @@
         scriptPath="/Users/$userName/Documents/Github/IG_Scripts/"
         workingPath="/Volumes/Storage Consolidation/Design Primary/_PRODUCTS/_Working/"
         uploadsPath="/Volumes/Storage Consolidation/Design Primary/_PRODUCTS/_Uploads/"
-        #workingPath="/Users/$userName/Desktop/script testing/_Working/"
-        #uploadsPath="/Users/$userName/Desktop/script testing/_Uploads/"
     elif [[ $OS == "Linux" ]]; then
         scriptPath="/mnt/c/Users/jere.baker/Documents/GitHub/IG_Scripts/"
         workingPath="/mnt/q/Design Primary/_PRODUCTS/_Working/"

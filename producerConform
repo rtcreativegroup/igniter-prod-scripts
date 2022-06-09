@@ -1,0 +1,14 @@
+#!/bin/bash
+
+mkdir -p "./assets"
+mkdir -p "./leftovers"
+
+find . -type f -name "*.jpg" -exec mv -ft ./assets {} +
+find . -type f -name "*.png" -exec mv -ft ./assets {} +
+find . -type f -name "*.psd" -exec mv -ft ./assets {} +
+find . -type f -name "*.zip" -exec mv -ft ./assets {} +
+find . -type f -name "*.mov" -exec mv -ft ./assets {} +
+find . -type f -name "*.mp4" -exec mv -ft ./assets {} +
+
+cd "./assets"
+ls

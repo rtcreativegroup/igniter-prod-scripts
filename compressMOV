@@ -3,9 +3,8 @@
 filter1="$1"
 filter2="$2"
 
-mkdir -p "_Originals"
-
 for i in *.mov; do
+    mkdir -p "_Originals"
     if [[ "$i" == *"$filter1"* ]] && [[ "$i" == *"$filter2"* ]] && [[ "$i" != "*.mov" ]]; then
         echo "      Compressing $i"
         fileName=${i%".mov"}.mp4
