@@ -5,8 +5,9 @@ scriptPath="$1"
 if [[ -d "./02_Title" ]]; then
     cd "./02_Title"
     for i in *; do
+        cd "./$i"
         if [[ -d "./_Images" ]]; then
-            cd "./$i/_Images"
+            cd "./_Images"
             bash ${scriptPath}checkImages
             cd ..
         fi
@@ -24,13 +25,14 @@ fi
 if [[ -d "./03_Social" ]]; then
     cd "./03_Social"
     for i in *; do
+        cd "./$i"
         if [[ -d "./_Images" ]]; then
-            cd "./$i/_Images"
+            cd "./_Images"
             bash ${scriptPath}checkImages
             cd ..
         fi
-        if [[ -d "./_Images" ]]; then
-        cd "./_Motions"
+        if [[ -d "./_Motions" ]]; then
+            cd "./_Motions"
             bash ${scriptPath}checkMotions
             cd ..
         fi
