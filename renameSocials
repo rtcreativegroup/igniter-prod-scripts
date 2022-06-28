@@ -1,94 +1,55 @@
 #!/bin/bash
 
-collectAssets () {
-    declare -a fileTypes=("*.jpg" "*.png" "*.zip" "*.mov" "*.mp4" "*.wav" "*.pptx" "*.proBundle")
-    mkdir -p "./assets"
-    mkdir -p "./leftovers and duplicates"
-    for i in ${fileTypes[@]}; do
-        find . -type f -name "$i" -exec mv -ft ./assets {} +
-    done
+rename () {
+    name="$1"
+    blank="$2"
 
+    if [[ $blank == "n" ]]; then
+        txt=""
+    elif [[ $blank == "y" ]]; then
+        txt="_BL"
+    else
+        txt=""
+    fi
+
+    for t in *.jpg *.png; do
+        if [[ "$t" != "*.jpg" ]] && [[ "$t" != "*.png" ]]; then
+            if [[ "$t" == *".jpg"* ]]; then
+                format=".jpg"
+            elif [[ "$t" == *".png"* ]]; then
+                format=".png"
+            fi
+
+            if [[ "$t" != *"$name"* ]]; then
+                if [[ "$t" == *"Landscape"* ]] || [[ "$t" == *"landscape"* ]]; then
+                    typ="_LS"
+                elif [[ "$t" == *"Portrait"* ]] || [[ "$t" == *"portrait"* ]]; then
+                    typ="_PR"
+                elif [[ "$t" == *"Square"* ]] || [[ "$t" == *"square"* ]]; then
+                    typ="_SQ"
+                fi
+                mv "$t" "${name}${typ}${txt}$format"
+                mv "${name}${typ}${txt}$format" ..
+            else
+                mv "$t" ..
+            fi
+        fi
+    done
+}
+
+for i in *; do
+    echo "    Renaming $i Socials"
+    cd "./$i/_Images"
+    if [[ -d "./With Text" ]]; then
+        cd "./With Text"
+        rename "$i" "n"
+        cd ..
+    fi
+    if [[ -d "./Without Text" ]]; then
+        cd "./Without Text"
+        rename "$i" "y"
+        cd ..
+    fi
     find . -type d -empty -delete
-
-    for i in *; do
-        if [[ "$i" != "assets" ]]; then
-            mv "$i" "./leftovers and duplicates"
-        fi
-    done
-}
-
-sortAssets () {
-    declare -a searchTitle=("Closing" "closing" "Scripture" "scripture" "Title" "title" "Welcome" "welcome" "Conclusion" "Conclusion")
-    declare -a searchSocial=("Social" "social")
-    declare -a searchWB=("Worship" "Worship")
-    declare -a searchUW=("null")
-    declare -a searchCD=("Countdown" "countdown" "5min")
-    declare -a searchTV=("null")
-    declare -a searchBP=("Bumper" "bumper" "Trailer" "trailer" "WEEK" "WEEKS")
-    declare -a searchGM=("GAME" "Game" "game" "ROUND" "Round" "round")
-
-    cd "./assets"
-    for i in *; do
-        if [[ "$i" != "*" ]]; then
-            for t in ${searchGM[@]}; do
-                if [[ "$i" == *"$t"* ]]; then
-                    mkdir -p "09_Game"
-                    mv "$i" "./09_Game"
-                    continue 2
-                fi
-            done
-            for t in ${searchBP[@]}; do
-                if [[ "$i" == *"$t"* ]]; then
-                    mkdir -p "08_Bumper"
-                    mv "$i" "./08_Bumper"
-                    continue 2
-                fi
-            done
-            for t in ${searchTV[@]}; do
-                if [[ "$i" == *"$t"* ]]; then
-                    mkdir -p "07_Trivia"
-                    mv "$i" "./07_Trivia"
-                    continue 2
-                fi
-            done
-            for t in ${searchCD[@]}; do
-                if [[ "$i" == *"$t"* ]]; then
-                    mkdir -p "06_Countdown"
-                    mv "$i" "./06_Countdown"
-                    continue 2
-                fi
-            done
-            for t in ${searchUW[@]}; do
-                if [[ "$i" == *"$t"* ]]; then
-                    mkdir -p "05_Ultra Wide"
-                    mv "$i" "./05_Ultra Wide"
-                    continue 2
-                fi
-            done
-            for t in ${searchWB[@]}; do
-                if [[ "$i" == *"$t"* ]]; then
-                    mkdir -p "04_Worship Background"
-                    mv "$i" "./04_Worship Background"
-                    continue 2
-                fi
-            done
-            for t in ${searchSocial[@]}; do
-                if [[ "$i" == *"$t"* ]]; then
-                    mkdir -p "03_Social"
-                    mv "$i" "./03_Social"
-                    continue 2
-                fi
-            done
-            for t in ${searchTitle[@]}; do
-                if [[ "$i" == *"$t"* ]]; then
-                    mkdir -p "02_Title"
-                    mv "$i" "./02_Title"
-                    continue 2
-                fi
-            done
-        fi
-    done
-}
-
-collectAssets
-sortAssets
+    cd ../../
+done
