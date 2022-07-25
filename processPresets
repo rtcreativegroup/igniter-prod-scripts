@@ -43,8 +43,8 @@
     presetAlt1="#preset=tg_alt1"
     presetAlt2="#preset=tg_alt2"
 
-    presetL3WIDE="#preset=tg_transparent_png_download_wide"
-    presetL3STD="#preset=tg_transparent_png_download_standard"
+    presetL3WIDE="#preset=tg_transparent_png_preview"
+    presetL3STD="#preset=tg_transparent_png_preview"
     presetL3TH="#preset=tg_transparent_png_preview"
 
     presetPPWIDE="#preset=ppt_wide"
