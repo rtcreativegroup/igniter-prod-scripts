@@ -20,6 +20,7 @@ if [[ $thumbs == "y" ]]; then
         read -p "    Input frame for Ultra Wide:         " uwFrame
     fi
     if [[ -d "./06_Countdown/_Motions" ]]; then
+        echo "    30fps == 3170, 24fps == 2536"
         read -p "    Input frame for Countdown:          " cdFrame
     fi
     if [[ -d "./07_Trivia/_Motions" ]]; then

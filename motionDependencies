@@ -19,7 +19,6 @@ alias test="/mnt/c/Users/jere.baker/Documents/GitHub/test"
 alias sdcrop="/mnt/c/Users/jere.baker/Documents/GitHub/IG_Scripts/sdcrop"
 alias workingFolders="/mnt/c/Users/jere.baker/Documents/GitHub/IG_Scripts/workingFolders"
 alias batchRename="/mnt/c/Users/jere.baker/Documents/GitHub/IG_Scripts/batchRename"
-
 alias uploads="/mnt/c/Users/jere.baker/Documents/GitHub/IG_Scripts/uploads"
 alias checkImages="/mnt/c/Users/jere.baker/Documents/GitHub/IG_Scripts/checkImages"
 alias checkMotions="/mnt/c/Users/jere.baker/Documents/GitHub/IG_Scripts/checkMotions"
