@@ -43,8 +43,8 @@
     presetAlt1="#preset=tg_alt1"
     presetAlt2="#preset=tg_alt2"
 
-    presetL3WIDE="#preset=tg_transparent_png_preview"
-    presetL3STD="#preset=tg_transparent_png_preview"
+    presetL3WIDE="#preset=tg_transparent_png_download_wide"
+    presetL3STD="#preset=tg_transparent_png_download_standard"
     presetL3TH="#preset=tg_transparent_png_preview"
 
     presetPPWIDE="#preset=ppt_wide"
@@ -101,12 +101,12 @@ for i in *.jpg *.png *.pptx; do
                 mv "$i" "${i%"$fileType"}${presetAlt2}$fileType"
 
             # image lower thirds
+            elif [[ "$i" == *"$suffixTH"* ]]; then
+                mv "$i" "${i%"$fileType"}${presetL3TH}$fileType"
             elif [[ "$i" == *"$prefixL3"* ]] && [[ "$i" == *"$suffixWIDE"* ]]; then
                 mv "$i" "${i%"$fileType"}${presetL3WIDE}$fileType"
             elif [[ "$i" == *"$prefixL3"* ]] && [[ "$i" == *"$suffixSTD"* ]]; then
                 mv "$i" "${i%"$fileType"}${presetL3STD}$fileType"
-            elif [[ "$i" == *"$prefixL3"* ]] && [[ "$i" == *"$suffixTH"* ]]; then
-                mv "$i" "${i%"$fileType"}${presetL3TH}$fileType"
 
             # powerpoints
             elif [[ "$i" == *"$prefixPP"* ]] && [[ "$i" == *"$suffixWIDE"* ]]; then
