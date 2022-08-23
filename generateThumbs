@@ -1,8 +1,6 @@
 #!/bin/bash
 
-frameNum="$1"
-filter1="$2"
-filter2="$3"
+textFilter="$1"
 
 #quicktime madness
 get_Thumb_Time() {
@@ -20,7 +18,7 @@ EOF
 #
 
 for i in *.mov; do
-    if [[ "$i" == *"$filter1"* ]] && [[ "$i" == *"$filter2"* ]] && [[ "$i" != "*.mov" ]]; then
+    if [[ "$i" == *"$textFilter"* ]] && [[ "$i" != "*.mov" ]]; then
         pngthumb=${i/mov}png
         jpgthumb=${i/mov}jpg
 
