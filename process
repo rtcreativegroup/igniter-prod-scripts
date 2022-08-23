@@ -5,6 +5,9 @@ filePrefix="$2"
 
 echo "Processing Files for $filePrefix"
 read -p "  Do you want to re-generate thumbnails for motions? (y/n)" thumbs
+#mkdir -p "./00_Assets/_emptyFolders"
+#find . -type d -empty -exec mv "./00_Assets/_emptyFolders"
+
 
 if [[ $thumbs == "y" ]]; then
     if [[ -d "./02_Title" ]]; then
@@ -50,6 +53,7 @@ if [[ -d "./02_Title" ]]; then
             if [[ "$thumbs" == "y" ]]; then 
                 bash ${scriptPath}generateThumbs $ttFrame "_HD" 
             fi
+            bash ${scriptPath}compressMOV
             bash ${scriptPath}processFilenames "$filePrefix"
             bash ${scriptPath}processPresets
             cd ..
@@ -95,6 +99,7 @@ if [[ -d "./04_Worship Background/_Motions" ]]; then
     if [[ "$thumbs" == "y" ]]; then 
         bash ${scriptPath}generateThumbs $wbFrame 
     fi
+    bash ${scriptPath}compressMOV
     bash ${scriptPath}processFilenames "$filePrefix"
     bash ${scriptPath}processPresets
     cd ../../
@@ -106,6 +111,7 @@ if [[ -d "./05_Ultra Wide/_Motions" ]]; then
     if [[ "$thumbs" == "y" ]]; then 
         bash ${scriptPath}generateThumbs $uwFrame
     fi
+    bash ${scriptPath}compressMOV
     bash ${scriptPath}processFilenames "$filePrefix"
     bash ${scriptPath}processPresets
     cd ../../
@@ -135,12 +141,15 @@ if [[ -d "./07_Trivia/_Motions" ]]; then
     cd ../../
 fi
 
-if [[ -d "./08_Bumper/_Motions" ]]; then
+if [[ -d "./08_Bumper" ]]; then
     echo "  Processing Bumper"
-    cd "./08_Bumper/_Motions"
+    cd "./08_Bumper"
+    bash ${scriptPath}compressFolder "_AE"
+    cd "./_Motions"
     if [[ "$thumbs" == "y" ]]; then 
         bash ${scriptPath}generateThumbs $bpFrame "_HD" 
     fi
+    bash ${scriptPath}compressMOV    
     bash ${scriptPath}processFilenames "$filePrefix"
     bash ${scriptPath}processPresets
     cd ../../
