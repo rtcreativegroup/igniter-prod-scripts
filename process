@@ -8,32 +8,6 @@ read -p "  Do you want to re-generate thumbnails for motions? (y/n)" thumbs
 #mkdir -p "./00_Assets/_emptyFolders"
 #find . -type d -empty -exec mv "./00_Assets/_emptyFolders"
 
-
-if [[ $thumbs == "y" ]]; then
-    if [[ -d "./02_Title" ]]; then
-        read -p "    Input frame for Title:              " ttFrame
-    fi
-    if [[ -d "./03_Social" ]]; then
-        read -p "    Input frame for Social:             " scFrame
-    fi
-    if [[ -d "./04_Worship Background/_Motions" ]]; then
-        read -p "    Input frame for Worship Background: " wbFrame
-    fi
-    if [[ -d "./05_Ultra Wide/_Motions" ]]; then
-        read -p "    Input frame for Ultra Wide:         " uwFrame
-    fi
-    if [[ -d "./06_Countdown/_Motions" ]]; then
-        echo "    30fps == 3170, 24fps == 2536"
-        read -p "    Input frame for Countdown:          " cdFrame
-    fi
-    if [[ -d "./07_Trivia/_Motions" ]]; then
-        read -p "    Input frame for Trivia:             " tvFrame
-    fi
-    if [[ -d "./08_Bumper/_Motions" ]]; then
-        read -p "    Input frame for Bumper:             " bpFrame
-    fi
-fi
-
 if [[ -d "./02_Title" ]]; then
     echo "  Processing Titles"
     cd "./02_Title"
@@ -51,7 +25,7 @@ if [[ -d "./02_Title" ]]; then
             echo "    Processing Motions"
             cd "./_Motions"
             if [[ "$thumbs" == "y" ]]; then 
-                bash ${scriptPath}generateThumbs $ttFrame "_HD" 
+                bash ${scriptPath}generateThumbs "_HD" 
             fi
             bash ${scriptPath}compressMOV
             bash ${scriptPath}processFilenames "$filePrefix"
@@ -81,7 +55,7 @@ if [[ -d "./03_Social" ]]; then
             echo "    Processing Motions"
             cd "./_Motions"
             if [[ "$thumbs" == "y" ]]; then 
-                bash ${scriptPath}generateThumbs $scFrame "_SQ" 
+                bash ${scriptPath}generateThumbs "_SQ" 
             fi
             bash ${scriptPath}compressMOV "_CH_"
             bash ${scriptPath}processFilenames "$filePrefix"
@@ -97,7 +71,7 @@ if [[ -d "./04_Worship Background/_Motions" ]]; then
     echo "  Processing Worship Backgrounds"
     cd "./04_Worship Background/_Motions"
     if [[ "$thumbs" == "y" ]]; then 
-        bash ${scriptPath}generateThumbs $wbFrame 
+        bash ${scriptPath}generateThumbs
     fi
     bash ${scriptPath}compressMOV
     bash ${scriptPath}processFilenames "$filePrefix"
@@ -109,7 +83,7 @@ if [[ -d "./05_Ultra Wide/_Motions" ]]; then
     echo "  Processing Ultra Wides"
     cd "./05_Ultra Wide/_Motions"
     if [[ "$thumbs" == "y" ]]; then 
-        bash ${scriptPath}generateThumbs $uwFrame
+        bash ${scriptPath}generateThumbs
     fi
     bash ${scriptPath}compressMOV
     bash ${scriptPath}processFilenames "$filePrefix"
@@ -121,7 +95,7 @@ if [[ -d "./06_Countdown/_Motions" ]]; then
     echo "  Processing Countdowns"
     cd "./06_Countdown/_Motions"
     if [[ "$thumbs" == "y" ]]; then 
-        bash ${scriptPath}generateThumbs $cdFrame "_HD" 
+        bash ${scriptPath}generateThumbs "_HD" 
     fi
     bash ${scriptPath}compressMOV
     bash ${scriptPath}processFilenames "$filePrefix"
@@ -133,7 +107,7 @@ if [[ -d "./07_Trivia/_Motions" ]]; then
     echo "  Processing Trivia"
     cd "./07_Trivia/_Motions"
     if [[ "$thumbs" == "y" ]]; then 
-        bash ${scriptPath}generateThumbs $tvFrame "_HD" 
+        bash ${scriptPath}generateThumbs "_HD" 
     fi
     bash ${scriptPath}compressMOV
     bash ${scriptPath}processFilenames "$filePrefix"
@@ -147,7 +121,7 @@ if [[ -d "./08_Bumper" ]]; then
     bash ${scriptPath}compressFolder "_AE"
     cd "./_Motions"
     if [[ "$thumbs" == "y" ]]; then 
-        bash ${scriptPath}generateThumbs $bpFrame "_HD" 
+        bash ${scriptPath}generateThumbs "_HD" 
     fi
     bash ${scriptPath}compressMOV    
     bash ${scriptPath}processFilenames "$filePrefix"
