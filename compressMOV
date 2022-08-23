@@ -2,13 +2,18 @@
 
 filter1="$1"
 filter2="$2"
+maximumSize=1048576000
 
 for i in *.mov; do
-    mkdir -p "_Originals"
-    if [[ "$i" == *"$filter1"* ]] && [[ "$i" == *"$filter2"* ]] && [[ "$i" != "*.mov" ]]; then
-        echo "      Compressing $i"
-        fileName=${i%".mov"}.mp4
-        ffmpeg -loglevel quiet -n -i "$i" -c:v libx264 -x264-params "nal-hrd=cbr" -b:v 3M -minrate 3M -maxrate 3M -bufsize 5M -c:a aac -b:a 192k -pix_fmt yuv420p "$fileName"
-        mv -f "$i" "./_Originals/"
+    if [[ "$i" != "*.mov" ]]; then
+        mkdir -p "_Originals"
+        filesize=$(wc -c <"$i")
+        #echo $filesize
+        if [[ "$i" == *"$filter1"* ]] && [[ "$i" == *"$filter2"* ]] && [[ $filesize -ge $maximumSize ]]; then
+            echo "      Compressing $i"
+            fileName=${i%".mov"}.mp4
+            ffmpeg -loglevel quiet -n -i "$i" -c:v libx264 -x264-params "nal-hrd=cbr" -b:v 3M -minrate 3M -maxrate 3M -bufsize 5M -c:a aac -b:a 192k -pix_fmt yuv420p "$fileName"
+            mv -f "$i" "./_Originals/"
+        fi
     fi
 done
