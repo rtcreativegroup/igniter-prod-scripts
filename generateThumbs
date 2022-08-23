@@ -4,12 +4,32 @@ frameNum="$1"
 filter1="$2"
 filter2="$3"
 
+#quicktime madness
+get_Thumb_Time() {
+
+TIME=$(osascript <<-EOF
+tell application "QuickTime Player"
+		activate
+		set thumbnailTime to current time of document 1
+		close document 1
+end tell
+get thumbnailTime
+EOF
+    )
+}
+#
+
 for i in *.mov; do
     if [[ "$i" == *"$filter1"* ]] && [[ "$i" == *"$filter2"* ]] && [[ "$i" != "*.mov" ]]; then
         pngthumb=${i/mov}png
         jpgthumb=${i/mov}jpg
-        echo "      Generating Thumb for $i"
-        ffmpeg -loglevel quiet -y -i "$i" -q:v 1 -vf "select=eq(n\,$frameNum)" -vframes 1 "$pngthumb"
+
+        open $i
+        read -p "Press enter after choosing the thumbnail frame." answer
+        get_Thumb_Time $i
+
+        echo "      Generating Thumb for $i from time $TIME"
+        ffmpeg -loglevel quiet -y -ss $TIME -i "$i" -q:v 1 -vframes 1 "$pngthumb"
         magick "$pngthumb" "$jpgthumb"
         rm "$pngthumb"
     fi
