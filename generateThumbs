@@ -32,6 +32,6 @@ for i in *.mov; do
         echo "      Generating Thumb for $i from time $TIME"
         ffmpeg -loglevel quiet -y -ss $TIME -i "$i" -q:v 1 -vframes 1 "$pngthumb"
         sleep .5
-        sips -s format jpeg "$pngthumb" --OUT "$jpgthumb" && rm "$pngthumb"
+        sips -s format jpeg "$pngthumb" --out "$jpgthumb" && rm "$pngthumb"
     fi
 done
