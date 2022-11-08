@@ -17,6 +17,8 @@ EOF
 }
 #
 
+open /System/Applications/QuickTime\ Player.app
+sleep 1
 files=(*)
 open "${files[0]}"
 read -p "Press enter after choosing the thumbnail frame." answer
