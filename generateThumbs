@@ -17,14 +17,15 @@ EOF
 }
 #
 
+files=(*)
+open "${files[0]}"
+read -p "Press enter after choosing the thumbnail frame." answer
+get_Thumb_Time $i
+
 for i in *.mov; do
     if [[ "$i" == *"$textFilter"* ]] && [[ "$i" != "*.mov" ]]; then
         pngthumb=${i/mov}png
-        jpgthumb=${i/mov}jpg
-
-        open $i
-        read -p "Press enter after choosing the thumbnail frame." answer
-        get_Thumb_Time $i
+        jpgthumb=${i/mov}jpg        
 
         echo "      Generating Thumb for $i from time $TIME"
         ffmpeg -loglevel quiet -y -ss $TIME -i "$i" -q:v 1 -vframes 1 "$pngthumb"
