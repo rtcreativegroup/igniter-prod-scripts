@@ -14,27 +14,29 @@ if [[ -d "./02_Title" ]]; then
     echo "  Processing Titles"
     cd "./02_Title"
     for i in *; do
-        cd "./$i"
-        bash ${scriptPath}compressFolder "_AE"
-        if [[ -d "./_Images" ]]; then
-            echo "    Processing Stills"
-            cd "./_Images"
-            bash ${scriptPath}processFilenames "$filePrefix"
-            bash ${scriptPath}processPresets
-            cd ..
-        fi
-        if [[ -d "./_Motions" ]]; then
-            echo "    Processing Motions"
-            cd "./_Motions"
-            if [[ "$thumbs" == "y" ]]; then 
-                bash ${scriptPath}generateThumbs "_HD" 
+        if [[ -d "./$i" ]]; then
+            cd "./$i"
+            bash ${scriptPath}compressFolder "_AE"
+            if [[ -d "./_Images" ]]; then
+                echo "    Processing Stills for $i"
+                cd "./_Images"
+                bash ${scriptPath}processFilenames "$filePrefix"
+                bash ${scriptPath}processPresets
+                cd ..
             fi
-            bash ${scriptPath}compressMOV
-            bash ${scriptPath}processFilenames "$filePrefix"
-            bash ${scriptPath}processPresets
+            if [[ -d "./_Motions" ]]; then
+                echo "    Processing Motions for $i"
+                cd "./_Motions"
+                if [[ "$thumbs" == "y" ]]; then 
+                    bash ${scriptPath}generateThumbs "_HD" 
+                fi
+                bash ${scriptPath}compressMOV
+                bash ${scriptPath}processFilenames "$filePrefix"
+                bash ${scriptPath}processPresets
+                cd ..
+            fi
             cd ..
         fi
-        cd ..
     done
     cd ..
 fi
