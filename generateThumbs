@@ -21,22 +21,18 @@ files=(*)
 open "${files[0]}"
 read -p "Press enter after choosing the thumbnail frame." answer
 get_Thumb_Time $i
-echo "$TIME"
-
-read -p "Press enter to continue" answer
 
 for i in *.mov; do
     if [[ "$i" == *"$textFilter"* ]] && [[ "$i" != "*.mov" ]]; then
         pngthumb=${i/mov}png
-        jpgthumb=${i/mov}jpg        
-
-        echo $pngthumb
-        echo $jpgthumb
-        read -p "Press enter to continue" answer
+        jpgthumb=${i/mov}jpg
 
         echo "      Generating Thumb for $i from time $TIME"
         ffmpeg -loglevel quiet -y -ss $TIME -i "$i" -q:v 1 -vframes 1 "$pngthumb"
+        sleep .5
         magick -quiet "$pngthumb" "$jpgthumb"
+        sleep .5
         rm "$pngthumb"
+        sleep .5
     fi
 done
