@@ -57,7 +57,7 @@ if [[ -d "./03_Social" ]]; then
             echo "    Processing Motions"
             cd "./_Motions"
             if [[ "$thumbs" == "y" ]]; then 
-                bash ${scriptPath}generateThumbs "_SQ" 
+                bash ${scriptPath}generateThumbs "_SQ"
             fi
             bash ${scriptPath}compressMOV "_CH_"
             bash ${scriptPath}processFilenames "$filePrefix"
