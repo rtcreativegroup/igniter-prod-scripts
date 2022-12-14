@@ -5,7 +5,7 @@ scriptPath="$1"
 if [[ -d "./02_Title" ]]; then
     cd "./02_Title"
     for i in *; do
-        if [[ -d "$i" ]]; then
+        if [[ -d "./$i" ]]; then
             cd "./$i"
             if [[ -d "./_Images" ]]; then
                 cd "./_Images"
