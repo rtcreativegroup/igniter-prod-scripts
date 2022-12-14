@@ -5,19 +5,21 @@ scriptPath="$1"
 if [[ -d "./02_Title" ]]; then
     cd "./02_Title"
     for i in *; do
-        cd "./$i"
-        if [[ -d "./_Images" ]]; then
-            cd "./_Images"
-            bash ${scriptPath}checkImages
+        if [[ -d "$i" ]]; then
+            cd "./$i"
+            if [[ -d "./_Images" ]]; then
+                cd "./_Images"
+                bash ${scriptPath}checkImages
+                cd ..
+            fi
+            if [[ -d "./_Motions" ]]; then
+                cd "./_Motions"
+                bash ${scriptPath}checkMotions
+                cd ..
+            fi
+            bash ${scriptPath}checkAE
             cd ..
         fi
-        if [[ -d "./_Motions" ]]; then
-            cd "./_Motions"
-            bash ${scriptPath}checkMotions
-            cd ..
-        fi
-        bash ${scriptPath}checkAE
-        cd ..
     done
     cd ..
 fi
