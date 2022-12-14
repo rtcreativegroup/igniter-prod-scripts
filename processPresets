@@ -42,6 +42,7 @@
 
     presetAlt1="#preset=tg_alt1"
     presetAlt2="#preset=tg_alt2"
+    presetAlt3="#preset=tg_alt3"
 
     presetL3WIDE="#preset=tg_transparent_png_download_wide"
     presetL3STD="#preset=tg_transparent_png_download_standard"
@@ -99,6 +100,8 @@ for i in *.jpg *.png *.pptx; do
                 mv "$i" "${i%"$fileType"}${presetAlt1}$fileType"
             elif [[ "$i" == *"$prefixAlt2"* ]]; then
                 mv "$i" "${i%"$fileType"}${presetAlt2}$fileType"
+            elif [[ "$i" == *"$prefixAlt3"* ]]; then
+                mv "$i" "${i%"$fileType"}${presetAlt3}$fileType"
 
             # image lower thirds
             elif [[ "$i" == *"$suffixTH"* ]]; then

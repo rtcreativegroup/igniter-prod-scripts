@@ -20,12 +20,13 @@ prefixTT2="TT2_"
 prefixTT3="TT3_"
 prefixAlt1="Alt1_"
 prefixAlt2="Alt2_"
+prefixAlt3="Alt3_"
 prefixL3="L3_"
 prefixPP="PP_"
 prefixFS="FS_"
 prefixFR="FR_"
 prefixPV="PV_"
-prefix=($prefixTT1 $prefixTT2 $prefixTT3 $prefixAlt1 $prefixAlt2 $prefixL3 $prefixPP $prefixFS $prefixFR $prefixPV)
+prefix=($prefixTT1 $prefixTT2 $prefixTT3 $prefixAlt1 $prefixAlt2 $prefixAlt3 $prefixL3 $prefixPP $prefixFS $prefixFR $prefixPV)
 
 resWIDE="1920x1080"
 resSTD="1440x1080"
