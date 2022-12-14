@@ -23,6 +23,7 @@
     prefixTT3="TT3_"
     prefixAlt1="Alt1_"
     prefixAlt2="Alt2_"
+    prefixAlt3="Alt3_"
     prefixL3="L3_"
     prefixPP=".pptx"
     prefixFS="FS_"
