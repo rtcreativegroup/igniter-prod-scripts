@@ -20,7 +20,7 @@
         echo "Server not connected"
         exit
     fi
-#
+# simple change
 
 # pick active project, make folders in uploads, move to working directory
     read -p "Is the project in _Working or _Uploads? " projLocation
